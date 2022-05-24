@@ -6,7 +6,22 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    thoughts: [Thought]!
-  }`;
+  }
+
+  type Auth {
+    token: ID!
+    user: User
+  }
+
+type Query {
+  #for some reason could not get rid of error without a query in here and it couldn't be empty.
+  dummy: String!
+}
+
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+  }
+`;
 
 module.exports = typeDefs;
