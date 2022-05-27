@@ -6,6 +6,29 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
+    goals: [Goal]
+    todos: [Todo]!
+  }
+
+  type Todo {
+    todoId: ID
+    todoName: String,
+    completed: Boolean
+    priority: String
+  }
+
+  type Goal {
+    _id: ID
+    name: String
+    completeByDate: String
+    completed: Boolean
+    priority: String
+    steps: [Step]!
+  }
+
+  type Step {
+    stepId: ID
+    stepName: String
   }
 
   type Auth {
@@ -14,8 +37,9 @@ const typeDefs = gql`
   }
 
 type Query {
-  #for some reason could not get rid of error without a query in here and it couldn't be empty.
-  dummy: String!
+  get: User
+  getTodos: User
+  getGoals: User
 }
 
   type Mutation {
