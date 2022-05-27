@@ -4,7 +4,18 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-
+    get: async () => {
+      return await User.find({})
+    },
+    getTodos: async (parent, args, context) => {
+      return await User.findOne({ _id: context.user._id }).populate('todos').sort({ priority: -1 })
+    },
+    getGoals: async (parent, args, context) => {
+      return await User.findOne({ _id: context.user._id }).populate('goals').populate({
+        path: 'goals',
+        populate: 'steps'
+      }).sort({ completeByDate: -1 })
+    },
   },
 
   Mutation: {
