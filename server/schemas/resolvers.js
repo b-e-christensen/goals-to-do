@@ -1,20 +1,17 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
+const { User, Goal } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     get: async () => {
-      return await User.find({})
+      return await User.find({}).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps'})
     },
-    getTodos: async (parent, args, context) => {
-      return await User.findOne({ _id: context.user._id }).populate('todos').sort({ priority: -1 })
+    getUserDevelopment: async (parent, { email }, context) => {
+      return await User.findOne({ email }).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps'})
     },
-    getGoals: async (parent, args, context) => {
-      return await User.findOne({ _id: context.user._id }).populate('goals').populate({
-        path: 'goals',
-        populate: 'steps'
-      }).sort({ completeByDate: -1 })
+    getUser: async (parent, args, context) => {
+      return await User.findOne({ _id: context.user._id }).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps'})
     },
   },
 
@@ -41,6 +38,30 @@ const resolvers = {
 
       return { token, user };
     },
+    addTodo: async (parent, { todoName, priority }, context) => {
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $addToSet: { todos: { todoName, priority }}},
+        { new: true, runValidators: true, }
+        )
+    },
+    addTodoDevelopment: async (parent, { email, todoName, priority }, context) => {
+      const updatedUser = await User.findOneAndUpdate(
+        { email },
+        { $addToSet: { todos: { todoName, priority }}},
+        { new: true, runValidators: true, }
+        )
+      return updatedUser
+    },
+    addGoalDevelopment: async (parent, { email, name, completeByDate, priority}, context) => {
+      const goal = await Goal.create({ name, completeByDate, priority })
+      
+      await User.findOneAndUpdate(
+        { email },
+        { $addToSet: { goals: goal._id }})
+
+      return goal
+    }
   },
 };
 

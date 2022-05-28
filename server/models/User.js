@@ -20,18 +20,9 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },  
-  goals: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: Goal
-    }
-  ],
+  goals: { type: Array, ref: Goal },
   todos: [
     {
-      todoId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
-      },
       todoName: {
         type: String,
         required: true
