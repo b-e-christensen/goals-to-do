@@ -4,28 +4,30 @@ const goalSchema = new Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     }, 
     completeByDate: {
         type: Date,
+        required: false,
     },
     completed: {
         type: Boolean,
         default: false,
     },
     priority: {
-        type: String
+        type: String,
+        required: false,
     },
     steps: [
         {
-            stepId: {
-                type: Schema.Types.ObjectId,
-                default: () => new Types.ObjectId(),
-            },
             stepName: {
                 type: String,
-                required: true
+                required: true,
             },
+            completed: {
+                type: Boolean,
+                default: false
+            }
         },
     ],
 })

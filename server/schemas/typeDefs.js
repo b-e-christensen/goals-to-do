@@ -11,7 +11,7 @@ const typeDefs = gql`
   }
 
   type Todo {
-    todoId: ID
+    _id: ID
     todoName: String,
     completed: Boolean
     priority: String
@@ -37,14 +37,20 @@ const typeDefs = gql`
   }
 
 type Query {
-  get: User
-  getTodos: User
-  getGoals: User
+  get: [User]
+  # ---- development query -----
+  getUserDevelopment(email: String!): User
+  getUser: User
 }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addTodo(todoName: String!, completed: Boolean, priority: String!): User
+    # ---- development mutation -----
+    addTodoDevelopment(email: String!, todoName: String!, priority: String!): User
+    # ---- development mutation -----
+    addGoalDevelopment(email: String!, name: String!, completeByDate: String!, priority: String!): Goal
   }
 `;
 
