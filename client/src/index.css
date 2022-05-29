@@ -1706,3 +1706,17 @@ label form [type='radio'] {
     align-content: center;
   }
 }
+
+
+/* Begin Custom CSS */
+
+/* Header Style  */
+.header {
+  background: rgb(0, 190, 143);
+  height: 200px;
+}
+
+.footer {
+  background: rgb(0, 190, 143);
+  height: 200px;
+}
