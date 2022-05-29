@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const Step = require('./Step');
 
 const goalSchema = new Schema({
     name: {
@@ -18,18 +19,7 @@ const goalSchema = new Schema({
         type: String,
         required: false,
     },
-    steps: [
-        {
-            stepName: {
-                type: String,
-                required: true,
-            },
-            completed: {
-                type: Boolean,
-                default: false
-            }
-        },
-    ],
+    steps: { type: Array, ref: Step}
 })
 
 const Goal = model('Goal', goalSchema);
