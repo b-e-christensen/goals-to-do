@@ -1,0 +1,12 @@
+.footer {
+  position:absolute;
+  left:0;
+  bottom:0;
+  right:0;
+}
+
+.footer h3 {
+  margin: 0;
+  text-align: center;
+  font-size: 2rem;
+}
