@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const Goal = require('./Goal');
+const Todo = require('./Todo');
 
 const userSchema = new Schema({
   username: {
@@ -21,21 +22,7 @@ const userSchema = new Schema({
     minlength: 5,
   },  
   goals: { type: Array, ref: Goal },
-  todos: [
-    {
-      todoName: {
-        type: String,
-        required: true
-      },
-      completed: {
-        type: Boolean,
-        default: false,
-      },
-      priority: {
-        type: String
-      },
-    },
-  ],
+  todos: { type: Array, ref: Todo },
 });
 
 userSchema.pre('save', async function (next) {
