@@ -28,7 +28,10 @@ export const LOGIN_USER = gql`
 
 export const ADD_TODO = gql`
   mutation addTodo($name: String!, $priority: String!) {
-    addTodo(name: $name, priority: $priority) {name}
+    addTodo(name: $name, priority: $priority) {
+        name
+
+    }
   }
 `;
 

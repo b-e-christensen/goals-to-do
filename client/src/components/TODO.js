@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_TODO } from '../utils/mutations';
+import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
 
 
 const Todo = (props) => {
@@ -38,6 +39,8 @@ const Todo = (props) => {
       priority: '',
     });
   };
+// HERE - Test data until working  queries 
+  const testDataTodo = [{_id: 1,name: "test", priority: "high", date: "1024389"},{_id: 2,name: "test2", priority: "high", date: "1024389"},{_id: 3,name: "test3", priority: "low", date: "1024385"}]
 
   return (
     <main className="flex-row justify-center mb-4">
@@ -47,8 +50,7 @@ const Todo = (props) => {
           <div className="card-body">
             {data ? (
               <p>
-                Success! You may now head{' '}
-                <Link to="/dashboard">back to the dashboard.</Link>
+                Success!
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
@@ -85,6 +87,32 @@ const Todo = (props) => {
             )}
           </div>
         </div>
+        <Container>
+        <h2>
+          {testDataTodo.length
+            ? `Viewing ${testDataTodo.length} results:`
+            : 'Create a ToDo'}
+        </h2>
+        
+          {testDataTodo.map((todo) => {
+            return (
+              <Card key={todo._id} border='dark'>
+                <Card.Body>
+                  <Card.Title>{todo.name}</Card.Title>
+                  <p className='small'>Priority: {todo.priority}</p>
+                  <Card.Text>TEST</Card.Text>
+                  <label> Mark as Complete 
+                  <input type="checkbox" />
+                  </label>
+                  <label> Remove
+                  <input type="checkbox" />
+                  </label>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        
+      </Container>
       </div>
     </main>
   );
