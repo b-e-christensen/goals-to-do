@@ -46,7 +46,7 @@ const Todo = (props) => {
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Create ToDo</h4>
+          <h4 className="card-header bg-dark text-light p-2">Create To Do</h4>
           <div className="card-body">
             {data ? (
               <p>
@@ -90,7 +90,7 @@ const Todo = (props) => {
         <Container>
         <h2>
           {testDataTodo.length
-            ? `Viewing ${testDataTodo.length} results:`
+            ? `Viewing ${testDataTodo.length} To Do's:`
             : 'Create a ToDo'}
         </h2>
         
@@ -105,7 +105,7 @@ const Todo = (props) => {
                   <input type="checkbox" />
                   </label>
                   <label> Remove
-                  <input type="checkbox" />
+                  <input type="checkbox" onChange={(e) => {alert(0)}}/>
                   </label>
                 </Card.Body>
               </Card>
