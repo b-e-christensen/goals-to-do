@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
-import { useMutation,  useQuery} from '@apollo/client';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { ADD_TODO } from '../utils/mutations';
-// import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
-// import {GET_USER_ALL} from '../utils/queries'
 import TODOCard from './TODOCard';
 
 const Todo = (props) => {
@@ -40,7 +37,7 @@ const Todo = (props) => {
       priority: '',
     });
   };
-  
+
   return (
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
