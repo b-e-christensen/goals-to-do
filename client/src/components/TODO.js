@@ -19,7 +19,7 @@ const Todo = (props) => {
 
   // submit form
   const handleFormSubmit = async (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     console.log(formState);
     try {
       const { data } = await addTodo({
@@ -37,6 +37,10 @@ const Todo = (props) => {
       priority: '',
     });
   };
+  const options = [
+    'one', 'two', 'three'
+  ];
+  const defaultOption = options[0];
 
   return (
     <main className="flex-row justify-center mb-4">
@@ -58,14 +62,14 @@ const Todo = (props) => {
                   value={formState.todo}
                   onChange={handleChange}
                 />
-                <input
-                  className="form-input"
-                  placeholder="Priority"
-                  name="priority"
-                  type="text"
-                  value={formState.priority}
-                  onChange={handleChange}
-                />
+                <label>
+                  Priority
+                  <select value={formState.priority} onChange={handleChange} name="priority" className="form-input">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </label>
                 <button
                   className="btn btn-block btn-info"
                   style={{ cursor: 'pointer' }}
@@ -83,33 +87,7 @@ const Todo = (props) => {
             )}
           </div>
         </div>
-        {/* <Container>
-        <h2>
-          {testDataTodo.length
-            ? `Viewing ${testDataTodo} To Do's:`
-            : 'Create a ToDo'}
-        </h2>
-        
-          {testDataTodo.map((todo) => {
-            return (
-              <Card key={todo._id} border='dark'>
-                <Card.Body>
-                  <Card.Title>{todo.name}</Card.Title>
-                  <p className='small'>Priority: {todo.priority}</p>
-                  <Card.Text>TEST</Card.Text>
-                  <label> Mark as Complete 
-                  <input type="checkbox" />
-                  </label>
-                  <label> Remove
-                  <input type="checkbox" onChange={(e) => {alert(0)}}/>
-                  </label>
-                </Card.Body>
-              </Card>
-            );
-          })}
-        
-      </Container> */}
-      <TODOCard/>
+        <TODOCard />
       </div>
     </main>
   );
