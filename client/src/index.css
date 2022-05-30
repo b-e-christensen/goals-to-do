@@ -1720,3 +1720,8 @@ label form [type='radio'] {
   background: rgb(0, 190, 143);
   height: 60px;
 }
+
+.card-title {
+  background: rgb(0, 190, 143);
+  font-size: 1.5rem;
+}

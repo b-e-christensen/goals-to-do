@@ -79,7 +79,7 @@ const resolvers = {
     }
       throw new AuthenticationError('You need to be logged in!');
     },
-    updateTodo: async (parent, { _id, name, completed, priority }) => { 
+    updateTodo: async (parent, { _id, name, completed, priority }, context) => { 
       if (context.user) {
       return await Todo.findOneAndUpdate(
         { _id },
