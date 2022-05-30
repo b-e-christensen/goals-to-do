@@ -40,6 +40,7 @@ const resolvers = {
       return { token, user };
     },
     addTodo: async (parent, { name, priority }, context) => {
+      if (context.user) {
       const todo = await Todo.create({ name, priority })
 
       await User.findOneAndUpdate(
@@ -47,8 +48,11 @@ const resolvers = {
         { $addToSet: { todos: todo._id }})
 
       return todo
+    }
+      throw new AuthenticationError('You need to be logged in!');
     },
     addGoal: async (parent, { name, completeByDate, priority}, context) => {
+      if (context.user) {
       const goal = await Goal.create({ name, completeByDate, priority })
       
       await User.findOneAndUpdate(
@@ -56,8 +60,11 @@ const resolvers = {
         { $addToSet: { goals: goal._id }})
 
       return goal
+    } 
+      throw new AuthenticationError('You need to be logged in!');
     },
     addStep: async (parent, { goalId, name }) => {
+      if (context.user) {
       const step = await Step.create({ name })
 
       await Goal.findOneAndUpdate(
@@ -65,26 +72,38 @@ const resolvers = {
         { $addToSet: { steps: step._id }})
 
       return step
+    }
+      throw new AuthenticationError('You need to be logged in!');
     },
     updateTodo: async (parent, { _id, name, completed, priority }) => { 
+      if (context.user) {
       return await Todo.findOneAndUpdate(
         { _id },
         { name, completed, priority },
         { runValidators: true, new: true})
+      }
+      throw new AuthenticationError('You need to be logged in!');
     }, 
     updateGoal: async (parent, { _id, name, completeByDate, completed, priority }) => {
+      if (context.user) {
       return await Goal.findOneAndUpdate(
         { _id },
         { name, completeByDate, completed, priority },
         { runValidators: true, new: true })
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
     updateStep: async (parent, { _id, name, completed }) => {
+      if (context.user) {
       return await Step.findOneAndUpdate(
       { _id },
       { name, completed },
       { runValidators: true, new: true })
+    }
+    throw new AuthenticationError('You need to be logged in!');
     },
     removeStep: async(parent, { _id, goalId}) => {
+      if (context.user) {
       const step = await Step.findOneAndDelete({ _id })
 
       await Goal.findOneAndUpdate(
@@ -92,8 +111,11 @@ const resolvers = {
         { $pull: { steps: step._id}})
 
       return step
+    }
+    throw new AuthenticationError('You need to be logged in!');
     },
     removeTodo: async (parent, { _id }, context) => {
+      if (context.user) {
       const todo = await Todo.findOneAndDelete({ _id })
 
       await User.findOneAndUpdate(
@@ -101,8 +123,11 @@ const resolvers = {
         { $pull: { todos: todo._id }})
 
       return todo
+    }
+    throw new AuthenticationError('You need to be logged in!');
     },
     removeGoal: async (parent, { _id }, context) => {
+      if (context.user) {
       const goal = await Goal.findOneAndDelete({ _id })
 
       await User.findOneAndUpdate(
@@ -110,6 +135,8 @@ const resolvers = {
         { $pull: { goals: goal._id}})
 
       return goal
+    }
+    throw new AuthenticationError('You need to be logged in!');
     },
     // MUTATIONS FOR DEVELOPMENT (to be able to make certain calls without being logged in)
     removeTodoDevelopment: async (parent, { _id, email }) => {
