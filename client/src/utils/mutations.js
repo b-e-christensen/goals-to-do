@@ -24,3 +24,11 @@ export const LOGIN_USER = gql`
   }
 `;
 
+//    addTodo(name: $name, priority: $priority) {}
+
+export const ADD_TODO = gql`
+  mutation addTodo($name: String!, $priority: String!) {
+    addTodo(name: $name, priority: $priority) {name}
+  }
+`;
+

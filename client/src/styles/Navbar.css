@@ -1,0 +1,23 @@
+.nav-card {
+    min-width:100%;
+    width:100%;
+}
+.nav-card-header {
+    background: #02ca8b;
+    min-height: 50;
+    line-height: 3.5;
+    font-size: 1.2rem;
+    color: white;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+.nav-card-header a {
+    color: #f6f6f8fc;
+    font-weight: bold;
+    margin-left: 1.2rem;
+    text-decoration: none;
+    cursor: pointer;
+}
