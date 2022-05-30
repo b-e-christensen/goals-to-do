@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ADD_GOAL } from '../utils/mutations';
+import { GET_USER_ALL } from '../utils/queries'
 import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
 // Here we are importing a CSS file as a dependency
 import '../styles/Header.css';
 
 function Goals() {
-  var date = new Date();
   
-  const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: null });
+  const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: 'null' });
   const [addGoal, { error, data }] = useMutation(ADD_GOAL);
 
   // update state based on form input changes
@@ -43,6 +43,10 @@ function Goals() {
       completeByDate: '' 
     });
   };
+
+  const { loading, err, userData } = useQuery(GET_USER_ALL);
+  const goals = userData?.goals || {};
+  console.log(goals)
 
   return (
     <main className="flex-row justify-center mb-4">
