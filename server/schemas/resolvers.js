@@ -9,10 +9,9 @@ const resolvers = {
     },
     getUser: async (parent, args, context) => {
       if (context.user) {
-      console.log('route hit')
       return await User.findOne({ _id: context.user._id }).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps'})
       }
-      throw new AuthenticationError('Something is broken')
+      throw new AuthenticationError('You need to be logged in!')
     },
     // QUERY FOR DEVELOPMENT
     getUserDevelopment: async (parent, { email }, context) => {
