@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation,  useQuery} from '@apollo/client';
 import { ADD_TODO } from '../utils/mutations';
 import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
-
+import {GET_USER_ALL} from '../utils/queries'
 
 const Todo = (props) => {
   const [formState, setFormState] = useState({ name: '', priority: '' });
@@ -41,6 +41,10 @@ const Todo = (props) => {
   };
 // HERE - Test data until working  queries 
   const testDataTodo = [{_id: 1,name: "test", priority: "high", date: "1024389"},{_id: 2,name: "test2", priority: "high", date: "1024389"},{_id: 3,name: "test3", priority: "low", date: "1024385"}]
+
+  const { loading, userData } = useQuery(GET_USER_ALL);
+  const userInfo = data?.me || {};
+  console.log(userInfo)
 
   return (
     <main className="flex-row justify-center mb-4">
