@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+// import { Link } from 'react-router-dom';
 import { useMutation,  useQuery} from '@apollo/client';
 import { ADD_TODO } from '../utils/mutations';
-import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
-import {GET_USER_ALL} from '../utils/queries'
+// import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
+// import {GET_USER_ALL} from '../utils/queries'
+import TODOCard from './TODOCard';
 
 const Todo = (props) => {
   const [formState, setFormState] = useState({ name: '', priority: '' });
@@ -39,13 +40,7 @@ const Todo = (props) => {
       priority: '',
     });
   };
-// HERE - Test data until working  queries 
-  const testDataTodo = [{_id: 1,name: "test", priority: "high", date: "1024389"},{_id: 2,name: "test2", priority: "high", date: "1024389"},{_id: 3,name: "test3", priority: "low", date: "1024385"}]
-
-  const { loading, userData } = useQuery(GET_USER_ALL);
-  const userInfo = data?.me || {};
-  console.log(userInfo)
-
+  
   return (
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
@@ -91,10 +86,10 @@ const Todo = (props) => {
             )}
           </div>
         </div>
-        <Container>
+        {/* <Container>
         <h2>
           {testDataTodo.length
-            ? `Viewing ${testDataTodo.length} To Do's:`
+            ? `Viewing ${testDataTodo} To Do's:`
             : 'Create a ToDo'}
         </h2>
         
@@ -116,7 +111,8 @@ const Todo = (props) => {
             );
           })}
         
-      </Container>
+      </Container> */}
+      <TODOCard/>
       </div>
     </main>
   );
