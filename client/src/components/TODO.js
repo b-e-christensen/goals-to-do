@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { ADD_TODO } from '../utils/mutations';
 
-import Auth from '../utils/auth';
 
-const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error, data }] = useMutation(LOGIN_USER);
+const Todo = (props) => {
+  const [formState, setFormState] = useState({ name: '', priority: '' });
+  const [addTodo, { error, data }] = useMutation(ADD_TODO);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -24,19 +23,19 @@ const Login = (props) => {
     event.preventDefault();
     console.log(formState);
     try {
-      const { data } = await login({
+      const { data } = await addTodo({
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
+      console.log(data);
     } catch (e) {
       console.error(e);
     }
 
     // clear form values
     setFormState({
-      email: '',
-      password: '',
+      name: '',
+      priority: '',
     });
   };
 
@@ -44,29 +43,29 @@ const Login = (props) => {
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
+          <h4 className="card-header bg-dark text-light p-2">Create ToDo</h4>
           <div className="card-body">
             {data ? (
               <p>
                 Success! You may now head{' '}
-                <Link to="/dashboard">back to the homepage.</Link>
+                <Link to="/dashboard">back to the dashboard.</Link>
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
+                  placeholder="Name of todo"
+                  name="name"
+                  type="text"
+                  value={formState.todo}
                   onChange={handleChange}
                 />
                 <input
                   className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
+                  placeholder="Priority"
+                  name="priority"
+                  type="text"
+                  value={formState.priority}
                   onChange={handleChange}
                 />
                 <button
@@ -91,4 +90,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Todo;

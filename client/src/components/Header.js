@@ -3,12 +3,12 @@ import React from 'react';
 import '../styles/Header.css';
 
 function Header() {
-  return (
+    return (
 
-    <header className="header">
-      <h1>To Do or not To Do</h1>
-    </header>
-  );
+        <header className="header">
+            <h1>To Do or not To Do</h1>
+        </header>
+    );
 }
 
 export default Header;
