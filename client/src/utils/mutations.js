@@ -44,3 +44,12 @@ mutation Mutation($name: String!, $completeByDate: String!, $priority: String!) 
   }
 }
 `;
+
+export const UPDATE_TODO = gql`
+  mutation updateTodo($_id: String!, $name: String!, $completed: Boolean!, $priority: String!) {
+    updateTodo(_id: $_id, name: $name, completed: $completed, priority: $priority) {
+        name
+
+    }
+  }
+`;
