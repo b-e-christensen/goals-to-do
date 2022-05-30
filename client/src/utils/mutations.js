@@ -35,3 +35,12 @@ export const ADD_TODO = gql`
   }
 `;
 
+export const ADD_GOAL = gql`
+mutation Mutation($name: String!, $completeByDate: String!, $priority: String!) {
+  addGoal(name: $name, completeByDate: $completeByDate, priority: $priority) {
+    name
+    completeByDate
+    priority
+  }
+}
+`;

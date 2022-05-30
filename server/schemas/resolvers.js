@@ -8,10 +8,14 @@ const resolvers = {
       return await User.find({}).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps'})
     },
     getUser: async (parent, args, context) => {
+      if (context.user) {
       return await User.findOne({ _id: context.user._id }).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps'})
+      }
+      throw new AuthenticationError('You need to be logged in!')
     },
     // QUERY FOR DEVELOPMENT
     getUserDevelopment: async (parent, { email }, context) => {
+      console.log('route hit')
       return await User.findOne({ email }).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps'})
     },
   },
