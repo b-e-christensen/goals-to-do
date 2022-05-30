@@ -2,10 +2,11 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Container, Card } from 'react-bootstrap';
 import { GET_USER_ALL } from '../utils/queries'
-import { UPDATE_TODO } from '../utils/mutations';
+import { UPDATE_TODO, REMOVE_TODO } from '../utils/mutations';
 
 const TODOCard = (props) => {
   const [updateTodo] = useMutation(UPDATE_TODO);
+  const [removeTodo] = useMutation(REMOVE_TODO);
   const { loading, data } = useQuery(GET_USER_ALL);
   const userInfo = data?.getUser.todos || [];
   console.log(userInfo)
@@ -32,7 +33,7 @@ const TODOCard = (props) => {
                 <input type="checkbox" onChange={(e) => { updateTodo({variables: {_id: todo._id, name: todo.name, completed: true, priority: todo.priority}}) }}/>
               </label>
               <label> Remove
-                <input type="checkbox" onChange={(e) => { updateTodo({variables: {_id: todo._id, name: todo.name, completed: true, priority: todo.priority}}) }} />
+                <input type="checkbox" onChange={(e) => { removeTodo({variables: {_id: todo._id}}) }} />
               </label>
             </Card.Body>
           </Card>
