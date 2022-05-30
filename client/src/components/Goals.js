@@ -4,12 +4,13 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_GOAL } from '../utils/mutations';
 import { GET_USER_ALL } from '../utils/queries'
 import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
+import GoalCard from './GoalCard'
 // Here we are importing a CSS file as a dependency
 import '../styles/Header.css';
 
 function Goals() {
   
-  const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: 'null' });
+  const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: null });
   const [addGoal, { error, data }] = useMutation(ADD_GOAL);
 
   // update state based on form input changes
@@ -40,13 +41,9 @@ function Goals() {
     setFormState({
       name: '',
       priority: 0,
-      completeByDate: '' 
+      completeByDate: null 
     });
   };
-
-  const { loading, err, userData } = useQuery(GET_USER_ALL);
-  const goals = userData?.goals || {};
-  console.log(goals)
 
   return (
     <main className="flex-row justify-center mb-4">
@@ -75,9 +72,9 @@ function Goals() {
                   value={formState.priority}
                   onChange={handleChange}
                 >
-                <option value={0}>Priority: Low</option>
-                <option value={1}>Priority: Medium</option>
-                <option value={2}>Priority: High</option>
+                <option value='Low'>Priority: Low</option>
+                <option value='Medium'>Priority: Medium</option>
+                <option value='High'>Priority: High</option>
                 </select>
                 <input
                   className="form-input"
@@ -104,6 +101,7 @@ function Goals() {
             )}
           </div>
         </div>
+        <GoalCard />
       </div>
     </main>
   );
