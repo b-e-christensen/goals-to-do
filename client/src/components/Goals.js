@@ -10,7 +10,7 @@ import '../styles/Header.css';
 
 function Goals() {
   
-  const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: null });
+  const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: '' });
   const [addGoal, { error, data }] = useMutation(ADD_GOAL);
 
   // update state based on form input changes
@@ -41,7 +41,7 @@ function Goals() {
     setFormState({
       name: '',
       priority: 0,
-      completeByDate: null 
+      completeByDate: '' 
     });
   };
 
