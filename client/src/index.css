@@ -432,6 +432,18 @@ a:hover {
   text-decoration: underline;
 }
 
+.b-border {
+  border-bottom: .2rem black dotted;
+  border-left: .2rem black dotted;
+  padding: 1rem;
+}
+
+.b-border-step {
+  /* border-bottom: .15rem #333 dotted; */
+  border-left: .15rem lightblue solid;
+  padding: .33rem;
+}
+
 /* HEIGHT / WIDTH UTILS */
 .w-100 {
   width: 100%;
