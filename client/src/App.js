@@ -40,7 +40,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const AuthContext = React.createContext(null);
 
 function App() {
 

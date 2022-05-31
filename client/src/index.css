@@ -1725,3 +1725,85 @@ label form [type='radio'] {
   background: rgb(0, 190, 143);
   font-size: 1.5rem;
 }
+
+/* Main start page style */
+
+.start-card {
+  margin-top: 5%;
+  margin-right: 18%;
+  margin-left: 18%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.start-card-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+} 
+
+.start-card-content a {
+  text-decoration: none;
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+  padding: 3rem;
+  width: 100%;
+  min-width: 100%;
+  background-color: #000000;
+}
+
+.start-card-content a:first-child {
+  margin-bottom: 1rem;
+}
+
+/* Wide use custom classes */
+.sub-container{
+  margin-top: 5%;
+  margin-right: 40%;
+  margin-left: 30%;
+  display: flex;
+  flex-wrap: wrap; 
+  max-width: 40%;
+  justify-content: center;
+  text-align: center;
+  /* box-shadow:  0px 33px 25px 0 #000, 
+                 0 26px 15px 0px #ccc; */
+  border: #000 solid .1rem;
+}
+
+.form-group-custom {
+  width: 100%;
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+}
+
+.form-group-custom input, button{
+  width: 100%;
+  height: 2.2rem;
+}
+
+.form-group-custom button:hover{
+  box-shadow:  0px 33px 25px 0 #000, 
+  0 26px 15px 0px #ccc;
+}
+
+.card {
+  margin-top: 2rem;
+}
+
+.custom-card-width {
+  width: 40%;
+  margin-left: 2rem;
+}
+.custom-cont-alter h2{
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.custom-cont-alter {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
