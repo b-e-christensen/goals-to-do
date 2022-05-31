@@ -461,6 +461,10 @@ a:hover {
   width: 25%;
 }
 
+.w-fit-content {
+  width: fit-content;
+}
+
 .min-100-vh {
   min-height: 100vh;
 }
@@ -1818,4 +1822,65 @@ label form [type='radio'] {
   display: flex;
   flex-wrap: wrap;
   margin-top: 1rem;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.App button {
+  padding: 13px 29px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+#portal .container {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+.container .modal {
+  z-index: 100 !important; 
+  width: 350px;
+  height: 220px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  position: absolute;
+  animation: animate 0.3s;
+}
+.modal-button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  padding: 8px 11px;
+  background: crimson;
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}@keyframes animate {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
 }

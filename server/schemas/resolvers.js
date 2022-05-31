@@ -68,7 +68,6 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
     addStep: async (parent, { goalId, name }) => {
-      if (context.user) {
       const step = await Step.create({ name })
 
       await Goal.findOneAndUpdate(
@@ -76,8 +75,6 @@ const resolvers = {
         { $addToSet: { steps: step._id }})
 
       return step
-    }
-      throw new AuthenticationError('You need to be logged in!');
     },
     updateTodo: async (parent, { _id, name, completed, priority }, context) => { 
       if (context.user) {

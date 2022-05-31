@@ -2,25 +2,38 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Container, Card } from 'react-bootstrap';
 import { GET_USER_ALL } from '../utils/queries'
+import StepModal from './StepModal'
+
 
 const GoalCard = (props) => {
   const { loading, data } = useQuery(GET_USER_ALL);
   const userInfo = data?.getUser.goals || [];
 
   const [userState, setUserState] = useState([...userInfo])
-  console.log(userState)
+  const [showModal, setShowModal] = useState(false)
+  const [stepState, setStepState] = useState({})
+  let stepArray = Object.keys(stepState)
 
-  const [stepState, setStepState] = useState('')
+  console.log('step Array ----> ' + stepArray)
+  console.log('step State ---------> ' + stepState)
+
+  const openModal = () => {
+    setShowModal(true)
+  }
 
   const showSteps = (goalId) => {
-    console.log('hello')
     setStepState({
       ...stepState,
       [goalId]: { step: true }
     })
   }
 
-  let stepArray = Object.keys(stepState)
+  const closeSteps = (goalId) => {
+    const steps = stepArray.filter((step) => step !== goalId)
+    setStepState({...steps})
+  }
+
+ 
 
   return (
     <Container>
@@ -42,8 +55,10 @@ const GoalCard = (props) => {
                   onClick={() => showSteps(goal._id)}
                 >{goal.name} - (click to view steps)</a>
               </Card.Title>
-              <Card.Text><p>Priority: {goal.priority}</p>
-                Complete by date: {new Date(+goal.completeByDate).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</Card.Text>
+              <Card.Text>
+                <p>Priority: {goal.priority}</p>
+                <p>Complete by date: {new Date(+goal.completeByDate).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</p>
+              </Card.Text>
               <label> Mark as Complete
                 <input type="checkbox" />
               </label>
@@ -53,19 +68,28 @@ const GoalCard = (props) => {
               {stepArray.includes(goal._id) ? (
                 <>
                   <div className='mt-3 ml-5'>
-                    <h6 className='b-border'>Step(s) to complete {goal.name}</h6>
-                    <div className='display-flex flex-row justify-space-between'><div>
-                      {goal.steps.map((step) => (<p className='b-border-step ml-5'> - {step.name}</p>))}</div>
-                      <div>
-                      <label className='mr-3 mt-2'> Mark as Complete
-                        <input type="checkbox" />
-                      </label>
-                      <label className='mr-3 mt-2'> Remove
-                        <input type="checkbox" onChange={(e) => { alert(0) }} />
-                      </label>
-                      </div>
+                    <div className='b-border display-flex justify-space-between'>
+                      <h6 >Step(s) to complete {goal.name}</h6>
+                      <button className='w-fit-content' onClick={openModal}>Add Step</button>
+                      {showModal ? <StepModal setShowModal={setShowModal} goalId={goal._id} /> : null}
                     </div>
-                  </div></>) : (<p></p>)}
+                    <div className='display-flex flex-column'>
+                      {goal.steps.map((step) => (
+                        <div className='display-flex flex-row justify-space-between'>
+                          <p className='b-border-step ml-5'> - {step.name}</p>
+                          <div className='display-flex flex-end'>
+                            <label className='mr-3 mt-2'> Mark as Complete
+                              <input type="checkbox" />
+                            </label>
+                            <label className='mr-3 mt-2'> Remove
+                              <input type="checkbox" onChange={(e) => { alert(0) }} />
+                            </label>
+                          </div>
+                        </div>))}
+                        <button className='w-fit-content' onClick={() => closeSteps(goal._id)}>Close Steps</button>
+                    </div>
+                  </div>
+                </>) : (<p></p>)}
             </Card.Body>
           </Card>
         );
