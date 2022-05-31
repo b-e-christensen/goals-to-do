@@ -9,9 +9,10 @@
     font-size: 1.2rem;
     color: white;
     padding: 0 20px;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex;
+    flex-wrap: wrap; */
     width: 100%;
+    position:relative;
   }
 
 .nav-card-header a {
@@ -21,3 +22,20 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.nav-card-header button {
+    float: right;
+    color: #f6f6f8fc;
+    background-color: #02ca8b;
+    max-width: 7rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    float: none;
+    margin-right: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+

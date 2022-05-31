@@ -4,15 +4,15 @@ import React, { useState } from "react";
 import Navbar from '../components/Navbar';
 import TODO from "../components/TODO";
 import Goals from "../components/Goals";
-//import Auth from "../utils/auth";
+import Auth from "../utils/auth";
 
 
 function Dashboard() {
-    //const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    // if (!token) {
-    //   return false;
-    // }
+    if(!token) {
+        window.location.href = "/"
+    }
 
     const [currentPage, setCurrentPage] = useState("TODO");
 
