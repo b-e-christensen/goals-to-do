@@ -12,7 +12,7 @@ function Goals() {
   
   const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: '' });
   const [addGoal, { error, data }] = useMutation(ADD_GOAL);
-
+  console.log(formState)
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,7 +40,7 @@ function Goals() {
     // clear form values
     setFormState({
       name: '',
-      priority: 0,
+      priority: 'Low',
       completeByDate: '' 
     });
   };
@@ -93,7 +93,7 @@ function Goals() {
                 </button>
               </form>
             )}
-
+                  
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}
