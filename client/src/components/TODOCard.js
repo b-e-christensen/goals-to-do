@@ -12,7 +12,7 @@ const TODOCard = (props) => {
   console.log(userInfo)
 
   return (
-    <Container>
+    <Container className='custom-cont-alter'>
       <h2>
         {userInfo.length
           ? `Viewing ${userInfo.length} To Do's:`
@@ -21,7 +21,7 @@ const TODOCard = (props) => {
 
       {userInfo.map((todo) => {
         return (
-          <Card key={todo._id} border='dark'>
+          <Card key={todo._id} border='dark' className='custom-card-width'>
             <Card.Body id={todo._id}>
               <Card.Title>{todo.name}</Card.Title>
               <p className='small'>Priority: {todo.priority}</p>
