@@ -30,7 +30,7 @@ const TODOCard = (props) => {
               )}
               
               <label> Mark as Complete
-                <input type="checkbox" onChange={(e) => { updateTodo({variables: {_id: todo._id, name: todo.name, completed: true, priority: todo.priority}}) }}/>
+                <input type="checkbox" onChange={(e) => { updateTodo({variables: {_id: todo._id, name: todo.name, completed: true, priority: todo.priority}})}}/>
               </label>
               <label> Remove
                 <input type="checkbox" onChange={(e) => { removeTodo({variables: {_id: todo._id}}) }} />
