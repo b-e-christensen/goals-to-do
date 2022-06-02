@@ -78,16 +78,16 @@ export const REMOVE_TODO = gql`
 `;
 
 export const UPDATE_STEP = gql`
-  mutation updateStep($id: String!, $name: String!, $completed: Boolean!) {
-    updateStep(_id: $id, name: $name, completed: $completed) {
+  mutation updateStep($_id: String!, $name: String!, $completed: Boolean!) {
+    updateStep(_id: $_id, name: $name, completed: $completed) {
       name
   }
 }
 `;
 
 export const REMOVE_STEP = gql`
-  mutation removeStep($id: String!, $goalId: String!) {
-    removeStep(_id: $id, goalId: $goalId) {
+  mutation removeStep($_id: String!, $goalId: String!) {
+    removeStep(_id: $_id, goalId: $goalId) {
       _id
     }
   }
