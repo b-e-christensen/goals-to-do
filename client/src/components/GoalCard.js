@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { Container, Card } from 'react-bootstrap';
 import { GET_USER_ALL } from '../utils/queries'
 import StepModal from './StepModal'
+import { UPDATE_STEP, REMOVE_STEP } from '../utils/mutations';
 
 
 const GoalCard = (props) => {
@@ -12,11 +13,14 @@ const GoalCard = (props) => {
   const [userState, setUserState] = useState([...userInfo])
   const [showModal, setShowModal] = useState(false)
   const [stepState, setStepState] = useState([])
-  let stepArray = Object.keys(stepState)
-  console.log('step Array ---------> ')
-  console.log(stepArray)
-  console.log('step State ---------> ' )
-  console.log(Object.keys(stepState))
+  const [updateStep] = useMutation(UPDATE_STEP);
+  const [removeStep] = useMutation(REMOVE_STEP);
+  let stepArray = []
+  if(stepState[0]) {
+    stepArray = stepState
+  } else {
+    stepArray = Object.keys(stepState)
+  }
 
   const openModal = () => {
     setShowModal(true)
@@ -31,8 +35,6 @@ const GoalCard = (props) => {
 
   const closeSteps = (goalId) => {
     const steps = stepArray.filter((step) => step !== goalId)
-    console.log('array state is being set to this array after filtering out id on closeSteps() ------> ')
-    console.log([...steps])
     setStepState([...steps])
   }
 
@@ -82,7 +84,7 @@ const GoalCard = (props) => {
                           <p className='b-border-step ml-5'> - {step.name}</p>
                           <div className='display-flex flex-end'>
                             <label className='mr-3 mt-2'> Mark as Complete
-                              <input type="checkbox" />
+                              {/* <input type="checkbox" onChange={(e) => { updateStep({variables: { _id: step._id, name: step.name, completed: true }})}}/> */}
                             </label>
                             <label className='mr-3 mt-2'> Remove
                               <input type="checkbox" onChange={(e) => { alert(0) }} />
