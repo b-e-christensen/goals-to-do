@@ -84,10 +84,10 @@ const GoalCard = (props) => {
                           <p className='b-border-step ml-5'> - {step.name}</p>
                           <div className='display-flex flex-end'>
                             <label className='mr-3 mt-2'> Mark as Complete
-                              {/* <input type="checkbox" onChange={(e) => { updateStep({variables: { _id: step._id, name: step.name, completed: true }})}}/> */}
+                              <input type="checkbox" onChange={(e) => { updateStep({variables: { _id: step._id, name: step.name, completed: true }})}}/>
                             </label>
                             <label className='mr-3 mt-2'> Remove
-                              <input type="checkbox" onChange={(e) => { alert(0) }} />
+                              <input type="checkbox" onChange={(e) => { removeStep({variables: { _id: step._id, goalId: goal._id }})}}/>
                             </label>
                           </div>
                         </div>))}
