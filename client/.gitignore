@@ -10,7 +10,7 @@
 
 # production
 /build
-
+client/.eslintcache
 # misc
 .DS_Store
 .env.local
