@@ -7,9 +7,10 @@ import { UPDATE_TODO, REMOVE_TODO } from '../utils/mutations';
 const TODOCard = (props) => {
   const [updateTodo] = useMutation(UPDATE_TODO);
   const [removeTodo] = useMutation(REMOVE_TODO);
-  const { loading, data } = useQuery(GET_USER_ALL);
+
+  const { loading, data, refetch } = useQuery(GET_USER_ALL);
   const userInfo = data?.getUser.todos || [];
-  console.log(userInfo)
+
 
   return (
     <Container className='custom-cont-alter'>
@@ -30,12 +31,12 @@ const TODOCard = (props) => {
               )}
               
               <label> Mark as Complete
-                <input type="checkbox" onChange={(e) => { updateTodo({variables: {_id: todo._id, name: todo.name, completed: true, priority: todo.priority}})}}/>
+                <input type="checkbox" onChange={(e) => {updateTodo({variables: {_id: todo._id, name: todo.name, completed: true, priority: todo.priority}}); refetch()}}/>
               </label>
               <label> Remove
-                <input type="checkbox" onChange={(e) => { removeTodo({variables: {_id: todo._id}}) }} />
+                <input type="checkbox" onChange={(e) => { removeTodo({variables: {_id: todo._id}}); refetch() }} />
               </label>
-            </Card.Body>
+            </Card.Body >
           </Card>
         );
       })}
