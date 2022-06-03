@@ -24,16 +24,15 @@ export const LOGIN_USER = gql`
   }
 `;
 
-//    addTodo(name: $name, priority: $priority) {}
-
-export const ADD_TODO = gql`
-  mutation addTodo($name: String!, $priority: String!) {
-    addTodo(name: $name, priority: $priority) {
-        name
-
-    }
+export const UPDATE_USER = gql`
+  mutation updateUser($username: String!, $email: String!, $password: String!) {
+  updateUser(username: $username, email: $email, password: $password) {
+    _id
+    username
+    email
   }
-`;
+}
+`
 
 export const ADD_GOAL = gql`
 mutation Mutation($name: String!, $completeByDate: String!, $priority: String!) {
@@ -46,19 +45,29 @@ mutation Mutation($name: String!, $completeByDate: String!, $priority: String!) 
 `;
 
 export const UPDATE_GOAL = gql`
-  mutation UpdateGoal($id: String!, $name: String!, $completeByDate: String!, $completed: Boolean!, $priority: String!) {
-    updateGoal(_id: $id, name: $name, completeByDate: $completeByDate, completed: $completed, priority: $priority) {
+  mutation updateGoal($_id: String!, $name: String!, $completeByDate: String!, $completed: Boolean!, $priority: String!) {
+    updateGoal(_id: $_id, name: $name, completeByDate: $completeByDate, completed: $completed, priority: $priority) {
       name
     }
   }
 `;
 
-export const ADD_STEP = gql`
-mutation AddStep($goalId: String!, $name: String!) {
-  addStep(goalId: $goalId, name: $name) {
-    name
+export const REMOVE_GOAL = gql`
+  mutation removeGoal($_id: String!) {
+    removeGoal(_id: $_id) {
+      _id
+      name
+    }
   }
-}
+`;
+
+export const ADD_TODO = gql`
+  mutation addTodo($name: String!, $priority: String!) {
+    addTodo(name: $name, priority: $priority) {
+        name
+
+    }
+  }
 `;
 
 export const UPDATE_TODO = gql`
@@ -75,6 +84,14 @@ export const REMOVE_TODO = gql`
         name
     }
   }
+`;
+
+export const ADD_STEP = gql`
+mutation AddStep($goalId: String!, $name: String!) {
+  addStep(goalId: $goalId, name: $name) {
+    name
+  }
+}
 `;
 
 export const UPDATE_STEP = gql`
