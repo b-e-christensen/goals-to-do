@@ -14,30 +14,11 @@ function Dashboard() {
         window.location.href = "/"
     }
 
-    const [currentPage, setCurrentPage] = useState("TODO");
-
-    const renderPage = () => {
-        if (currentPage === "TODO") {
-            return <TODO />;
-        }
-        if (currentPage === "GOALS") {
-            return <Goals />;
-        }
-
-        return;
-    };
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
     return (
-
         <section>
-            <Navbar currentPage={currentPage} handlePageChange={handlePageChange} /> 
-            {renderPage()}
+            <Navbar />
+            <TODO />
         </section>
-
     );
 }
 

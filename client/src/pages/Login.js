@@ -49,7 +49,7 @@ const Login = (props) => {
             {data ? (
               <p>
                 Success! You may now head{' '}
-                <Link to="/dashboard">back to the homepage.</Link>
+                <Link to="/todos">back to the homepage.</Link>
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
