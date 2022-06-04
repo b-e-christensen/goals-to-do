@@ -10,10 +10,12 @@ const GoalCard = (props) => {
   const { loading, data, refetch } = useQuery(GET_USER_ALL);
 
   useEffect(() => {
+    console.log('use Effect')
     refetch()
   })
 
   const userInfo = data?.getUser.goals || [];
+  console.log(userInfo)
 
   const [userState, setUserState] = useState([...userInfo])
   const [showModal, setShowModal] = useState(false)

@@ -465,6 +465,10 @@ a:hover {
   width: fit-content;
 }
 
+.h-fit-content {
+  height: fit-content;
+}
+
 .min-100-vh {
   min-height: 100vh;
 }

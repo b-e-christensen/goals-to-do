@@ -24,7 +24,7 @@ const TODOCard = (props) => {
     {/* initial render will display incomplete to dos */}
       {viewState ? (
         <>
-          <div className='display-flex justify-space-between'>
+          <div className='w-100 display-flex justify-space-between'>
             <h2>
               {userInfo.length
                 ? `Viewing Incomplete To Do's:`
@@ -37,12 +37,11 @@ const TODOCard = (props) => {
               todo.completed ? ('') : 
               (<Card key={todo._id} border='dark' className='custom-card-width'>
                   <Card.Body id={todo._id}>
-                    <Card.Title>{todo.name}</Card.Title>
+                    <Card.Title className='text-center'>{todo.name}</Card.Title>
                     <p className='small'>Priority: {todo.priority}</p>
                     {todo.completed ? (<Card.Text>Completed</Card.Text>) : (
-                      <Card.Text>Not yet completed</Card.Text>
+                      <Card.Text>Incomplete</Card.Text>
                     )}
-
                     <label> Mark as Complete
                       <input type="checkbox" onChange={(e) => { updateTodo({ variables: { _id: todo._id, name: todo.name, completed: true, priority: todo.priority } }); refetch() }} />
                     </label>
@@ -53,13 +52,13 @@ const TODOCard = (props) => {
                 </Card>))
           })}
         </>) : (<>
-          <div className='display-flex justify-space-between'>
+          <div className='w-100 display-flex justify-space-between'>
             <h2>
               {userInfo.length
-                ? `Viewing Incomplete To Do's:`
+                ? `Viewing Complete To Do's:`
                 : 'Create a To Do'}
             </h2>
-            <button className='w-fit-content' onClick={() => { setViewState('incomplete') }}>View Incomplete To Do's</button>
+            <button className='w-fit-content h-fit-content' onClick={() => { setViewState('incomplete') }}>View Incomplete To Do's</button>
           </div>
           {userInfo.map((todo) => {
             return (
