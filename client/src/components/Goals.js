@@ -28,7 +28,6 @@ function Goals() {
       const { data } = await addGoal({
         variables: { ...formState },
       });
-
       console.log(data);
     } catch (e) {
       console.error(e);

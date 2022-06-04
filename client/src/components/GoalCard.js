@@ -51,7 +51,7 @@ const GoalCard = (props) => {
 
   return (
     <Container>
-    {/* initial render will display incomplete goals */}
+      {/* initial render will display incomplete goals */}
       {viewState ? (
         <>
           <div className='display-flex justify-space-between'>
@@ -60,9 +60,8 @@ const GoalCard = (props) => {
                 ? `Viewing Incomplete Goals:`
                 : 'Create a Goal'}
             </h2>
-            <button className='w-fit-content' onClick={() => { setViewState('') }}>View Complete Goals</button>
+            <button className='w-fit-content' onClick={() => { setViewState('') }}>View Completed Goals</button>
           </div>
-
           {userInfo.map((goal) => {
             return (
               goal.completed ? ('') : (
@@ -81,15 +80,10 @@ const GoalCard = (props) => {
                       </Card.Text>
                       <div className='w-25 display-flex flex-column justify-space-around align-center'>
                         <button className='w-fit-content' onClick={(e) => showSteps(goal._id)}>Add/View Steps</button>
-                        {goal.completed ?
-                          (<button className='w-fit-content' onClick={(e) => {
-                            updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: false } })
-                            refetch()
-                          }}>Completed!</button>) :
-                          (<button className='w-fit-content' onClick={(e) => {
-                            updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: true } })
-                            refetch()
-                          }}>Mark as Complete</button>)}
+                        <button className='w-fit-content' onClick={(e) => {
+                          updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: true } })
+                          refetch()
+                        }}>Mark as Complete</button>
                         <button className='w-fit-content' onClick={(e) => {
                           removeGoal({ variables: { _id: goal._id } })
                           refetch()
@@ -145,7 +139,7 @@ const GoalCard = (props) => {
               ))
           })}
 
-        </>) : 
+        </>) :
         // displays all the completed goals
         (<>
           <div className='display-flex justify-space-between'>
@@ -174,15 +168,10 @@ const GoalCard = (props) => {
                       </Card.Text>
                       <div className='w-25 display-flex flex-column justify-space-around align-center'>
                         <button className='w-fit-content' onClick={(e) => showSteps(goal._id)}>Add/View Steps</button>
-                        {goal.completed ?
-                          (<button className='w-fit-content' onClick={(e) => {
-                            updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: false } })
-                            refetch()
-                          }}>Completed!</button>) :
-                          (<button className='w-fit-content' onClick={(e) => {
-                            updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: true } })
-                            refetch()
-                          }}>Mark as Complete</button>)}
+                        <button className='w-fit-content' onClick={(e) => {
+                          updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: false } })
+                          refetch()
+                        }}>Completed!</button>
                         <button className='w-fit-content' onClick={(e) => {
                           removeGoal({ variables: { _id: goal._id } })
                           refetch()

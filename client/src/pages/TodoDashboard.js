@@ -3,7 +3,6 @@ import React, { useState } from "react";
 // import Login from '../pages/Login';
 import Navbar from '../components/Navbar';
 import TODO from "../components/TODO";
-import Goals from "../components/Goals";
 import Auth from "../utils/auth";
 
 

@@ -25,6 +25,7 @@ const Todo = (props) => {
       const { data } = await addTodo({
         variables: { ...formState },
       });
+      console.log(data);
     } catch (e) {
       console.error(e);
     }
@@ -34,7 +35,6 @@ const Todo = (props) => {
       name: '',
       priority: '',
     });
-    window.location.reload();
   };
 
   return (
@@ -43,11 +43,6 @@ const Todo = (props) => {
         <div className="card">
           <h4 className="card-header bg-dark text-light p-2">Create To Do</h4>
           <div className="card-body">
-            {data ? (
-              <p>
-                Success!
-              </p>
-            ) : (
               <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
@@ -73,8 +68,6 @@ const Todo = (props) => {
                   Submit
                 </button>
               </form>
-            )}
-
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}
