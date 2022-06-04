@@ -32,7 +32,7 @@ export const UPDATE_USER = gql`
     email
   }
 }
-`
+`;
 
 export const ADD_GOAL = gql`
 mutation Mutation($name: String!, $completeByDate: String!, $priority: String!) {

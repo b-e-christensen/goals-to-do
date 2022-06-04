@@ -48,11 +48,7 @@ function Goals() {
         <div className="card">
           <h4 className="card-header bg-dark text-light p-2">Create Goal</h4>
           <div className="card-body">
-            {data ? (
-              <p>
-                Success!
-              </p>
-            ) : (
+
               <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
@@ -92,7 +88,6 @@ function Goals() {
                   Submit
                 </button>
               </form>
-            )}
 
             {error && (
               <div className="my-3 p-3 bg-danger text-white">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { Container, Card } from 'react-bootstrap';
 import { GET_USER_ALL } from '../utils/queries'
 import StepModal from './StepModal'
@@ -8,6 +8,10 @@ import { UPDATE_STEP, REMOVE_STEP, UPDATE_GOAL, REMOVE_GOAL } from '../utils/mut
 
 const GoalCard = (props) => {
   const { loading, data, refetch } = useQuery(GET_USER_ALL);
+
+  useEffect(() => {
+    refetch()
+  })
 
   const userInfo = data?.getUser.goals || [];
   console.log([...userInfo])
