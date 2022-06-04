@@ -13,7 +13,7 @@ const TODOCard = (props) => {
 
 
   return (
-    <Container className='custom-cont-alter'>
+    <Container className='custom-cont-alter' data-count={props.count}>
       <h2>
         {userInfo.length
           ? `Viewing ${userInfo.length} To Do's:`
