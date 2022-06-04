@@ -19,13 +19,12 @@ const Todo = (props) => {
 
   // submit form
   const handleFormSubmit = async (event) => {
-    //event.preventDefault();
+    event.preventDefault();
+
     try {
       const { data } = await addTodo({
         variables: { ...formState },
       });
-
-      console.log(data);
     } catch (e) {
       console.error(e);
     }
@@ -35,11 +34,8 @@ const Todo = (props) => {
       name: '',
       priority: '',
     });
+    window.location.reload();
   };
-  const options = [
-    'one', 'two', 'three'
-  ];
-  const defaultOption = options[0];
 
   return (
     <main className="flex-row justify-center mb-4">
@@ -85,8 +81,9 @@ const Todo = (props) => {
               </div>
             )}
           </div>
-        </div>
+        </div> 
         <TODOCard />
+       
       </div>
     </main>
   );
