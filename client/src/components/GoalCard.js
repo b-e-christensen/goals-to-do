@@ -54,6 +54,10 @@ const GoalCard = (props) => {
                   style={{ cursor: 'pointer' }}
                   onClick={() => showSteps(goal._id)}
                 >{goal.name} - (click to view steps)</a>
+                  <div className='b-border display-flex justify-space-between'>
+                   <button className='w-fit-content' onClick={openModal}>Edit Goal</button>
+                   {showModal ? <StepModal setShowModal={setShowModal} goalId={goal._id} /> : null}
+                    </div>
               </Card.Title>
               <Card.Text>
                 <p>Priority: {goal.priority}</p>

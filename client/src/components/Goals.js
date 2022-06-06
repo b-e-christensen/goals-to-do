@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_GOAL } from '../utils/mutations';
+import { ADD_GOAL, EDIT_GOAL } from '../utils/mutations';
 import { GET_USER_ALL } from '../utils/queries'
 import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
 import GoalCard from './GoalCard'
@@ -11,7 +11,7 @@ import '../styles/Header.css';
 function Goals() {
   
   const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: '' });
-  const [addGoal, { error, data }] = useMutation(ADD_GOAL);
+  const [addGoal, { error, data }] = useMutation(ADD_GOAL, EDIT_GOAL);
   console.log(formState)
   // update state based on form input changes
   const handleChange = (event) => {
