@@ -7,7 +7,11 @@ const ProfilePage = (props) => {
 
   return (
     <div>
-        <div>
+        <div style={{
+            display:"flex",
+            justifyContent:"space-around",
+            margin:"18px 0px",
+        }}>
             <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
             src="https://media.istockphoto.com/photos/happy-corn-cartoon-character-laughing-joyfully-waving-hands-smiling-picture-id489224645?b=1&k=20&m=489224645&s=170667a&w=0&h=Wz4wN2hIlWSMFW2LiA3Tmakqw4NQoAFm356sucsYAMY="
             />
