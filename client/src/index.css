@@ -12,6 +12,18 @@ html {
   /* 2 */
 }
 
+.light {
+  --background: white;
+  --text-primary: black;
+  --text-secondary: royalblue;
+  --accent: purple;
+}
+.dark {
+  --background: black;
+  --text-primary: white;
+  --text-secondary: grey;
+  --accent: darkred;
+}
 /* Sections
    ========================================================================== */
 /**
@@ -19,6 +31,7 @@ html {
  */
 body {
   margin: 0;
+  background-color: var(--background);
 }
 
 /**
@@ -1893,3 +1906,5 @@ label form [type='radio'] {
     transform: scale(1);
   }
 }
+
+main { background-color: var(--background);}
