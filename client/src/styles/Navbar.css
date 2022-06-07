@@ -24,18 +24,35 @@
 }
 
 .nav-card-header button {
-    float: right;
     color: #f6f6f8fc;
     background-color: #02ca8b;
     max-width: 7rem;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
-    float: none;
-    margin-right: 0;
+    height: 100%;
+}
+
+.logout-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+}
+
+
+.nav-link-dark { 
+    border: none;
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
+    margin-right: 10rem;
+    max-height: 6rem;
+    max-width: 6rem;
 }
 
+.nav-link-dark-img {
+    max-height: 4.4rem;
+    max-width: 4.4rem;
+}
