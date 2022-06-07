@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Container, Card } from 'react-bootstrap';
 import { GET_USER_ALL } from '../utils/queries'
+import ToDoModal from './ToDoModal'
 import { UPDATE_TODO, REMOVE_TODO } from '../utils/mutations';
 
 const TODOCard = (props) => {
+  const [showModal, setShowModal] = useState(false)
   const [updateTodo] = useMutation(UPDATE_TODO);
   const [removeTodo] = useMutation(REMOVE_TODO);
   const { loading, data, refetch } = useQuery(GET_USER_ALL);
@@ -14,6 +16,10 @@ const TODOCard = (props) => {
   })
 
   const userInfo = data?.getUser.todos || [];
+
+  const openModal = () => {
+    setShowModal(true)
+  }
 
   const [viewState, setViewState] = useState('incomplete')
 
@@ -37,6 +43,11 @@ const TODOCard = (props) => {
                 (<Card key={todo._id} border='dark' className='custom-card-width'>
                   <Card.Body id={todo._id}>
                     <Card.Title className='text-center'><h5>{todo.name}</h5></Card.Title>
+                    <div className='b-border display-flex justify-space-between'>
+                            <h6>Edit ToDo {todo.name}</h6>
+                            <button className='w-fit-content' onClick={openModal}>Edit TODO</button>
+                            {showModal ? <ToDoModal setShowModal={setShowModal} goalId={todo._id} /> : null}
+                          </div>
                     <div className='display-flex justify-space-between'>
                       <div className='w-fit-content display-flex flex-column mt-5'>
                         <p className='small'>Priority: {todo.priority}</p>

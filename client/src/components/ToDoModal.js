@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
-import { EDIT_GOAL } from '../utils/mutations';
+import { EDIT_TODO } from '../utils/mutations';
 
 const StepModal = ({ setShowModal, goalId }) => {
   // close the modal when clicking outside the modal.
@@ -14,7 +14,7 @@ const StepModal = ({ setShowModal, goalId }) => {
 
   const [formState, setFormState] = useState({ name: '', goalId: goalId });
   // const [addStep, { error, data }] = useMutation(ADD_STEP);
-  const [addStep, { error, data }] = useMutation(EDIT_GOAL);
+  const [addStep, { error, data }] = useMutation(EDIT_TODO);
 
   console.log(formState)
   // update state based on form input changes
@@ -50,11 +50,11 @@ const StepModal = ({ setShowModal, goalId }) => {
   return ReactDom.createPortal(
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal display-flex flex-column">
-        <h5 className='m-3'>Edit Goal</h5>
+        <h5 className='m-3'>Edit TODO</h5>
         <form className='w-75' onSubmit={handleFormSubmit}>
           <input
             className="form-input"
-            placeholder="Name of goal"
+            placeholder="Name of TODO"
             name="name"
             type="text"
             value={formState.name}

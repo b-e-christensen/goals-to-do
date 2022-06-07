@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { Container, Card } from 'react-bootstrap';
 import { GET_USER_ALL } from '../utils/queries'
 import StepModal from './StepModal'
-import GoalModal from './GoalsModal'
+import GoalsModal from './GoalsModal'
 import { UPDATE_STEP, REMOVE_STEP, UPDATE_GOAL, REMOVE_GOAL } from '../utils/mutations';
 
 
@@ -74,7 +74,7 @@ const GoalCard = (props) => {
                     <div className='b-border display-flex justify-space-between'>
                             <h6>Step(s) to complete {goal.name}</h6>
                             <button className='w-fit-content' onClick={openModal}>Edit Goal</button>
-                            {showModal ? <GoalModal setShowModal={setShowModal} goalId={goal._id} /> : null}
+                            {showModal ? <GoalsModal setShowModal={setShowModal} goalId={goal._id} /> : null}
                           </div>
                     <div className='display-flex justify-space-between'>
                       <Card.Text>
