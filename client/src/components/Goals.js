@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ADD_GOAL, EDIT_GOAL } from '../utils/mutations';
-import { GET_USER_ALL } from '../utils/queries'
-import { Jumbotron, Container, Col, Form, Button, Card } from 'react-bootstrap';
 import GoalCard from './GoalCard'
 // Here we are importing a CSS file as a dependency
 import '../styles/Header.css';
 
 function Goals() {
-  
-  const [formState, setFormState] = useState({ name: '', priority: 0, completeByDate: '' });
-  const [addGoal, { error, data }] = useMutation(ADD_GOAL, EDIT_GOAL);
+
+  const [formState, setFormState] = useState({ name: '', priority: 'Low', completeByDate: '' });
+  const [addGoal, { error, data }] = useMutation(ADD_GOAL);
   console.log(formState)
   // update state based on form input changes
   const handleChange = (event) => {
@@ -31,7 +28,6 @@ function Goals() {
       const { data } = await addGoal({
         variables: { ...formState },
       });
-
       console.log(data);
     } catch (e) {
       console.error(e);
@@ -41,7 +37,7 @@ function Goals() {
     setFormState({
       name: '',
       priority: 'Low',
-      completeByDate: '' 
+      completeByDate: ''
     });
   };
 
@@ -51,11 +47,7 @@ function Goals() {
         <div className="card">
           <h4 className="card-header bg-dark text-light p-2">Create Goal</h4>
           <div className="card-body">
-            {data ? (
-              <p>
-                Success!
-              </p>
-            ) : (
+
               <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
@@ -65,17 +57,20 @@ function Goals() {
                   value={formState.goal}
                   onChange={handleChange}
                 />
-                <select
-                  className="form-input"
-                  placeholder="Priority"
-                  name="priority"
-                  value={formState.priority}
-                  onChange={handleChange}
-                >
-                <option value='Low'>Priority: Low</option>
-                <option value='Medium'>Priority: Medium</option>
-                <option value='High'>Priority: High</option>
-                </select>
+                <label>
+                  Priority
+                  <select
+                    className="form-input"
+                    placeholder="Priority"
+                    name="priority"
+                    value={formState.priority}
+                    onChange={handleChange}
+                  >
+                    <option value='Low'>Low</option>
+                    <option value='Medium'>Medium</option>
+                    <option value='High'>High</option>
+                  </select>
+                </label>
                 <input
                   className="form-input"
                   placeholder="Date to complete by"
@@ -92,8 +87,7 @@ function Goals() {
                   Submit
                 </button>
               </form>
-            )}
-                  
+
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}

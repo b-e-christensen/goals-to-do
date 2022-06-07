@@ -13,7 +13,8 @@ import Footer from './components/Footer';
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Start from './components/Start'
-import Dashboard from './pages/Dashboard';
+import TodoDashboard from './pages/TodoDashboard';
+import GoalDashboard from './pages/GoalDashboard'
 //import Auth from './utils/auth';
 
 // Construct our main GraphQL API endpoint
@@ -50,21 +51,25 @@ function App() {
           <Header />
           <div className="container">
             <Routes>
-              <Route 
-                path="/" 
+              <Route
+                path="/"
                 element={<Start />}
               />
-              <Route 
-                path="/login" 
+              <Route
+                path="/login"
                 element={<Login />}
               />
-              <Route 
-                path="/signup" 
+              <Route
+                path="/signup"
                 element={<Signup />}
               />
-              <Route 
-                path="/dashboard" 
-                element={<Dashboard />}
+              <Route
+                path="/todos"
+                element={<TodoDashboard />}
+              />
+              <Route
+                path="/goals"
+                element={<GoalDashboard />}
               />
             </Routes>
           </div>

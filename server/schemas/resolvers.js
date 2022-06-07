@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Goal, Todo, Step } = require('../models');
 const { signToken } = require('../utils/auth');
+const bcrypt = require('bcrypt');
 
 const resolvers = {
   Query: {
@@ -67,7 +68,8 @@ const resolvers = {
     } 
       throw new AuthenticationError('You need to be logged in!');
     },
-    addStep: async (parent, { goalId, name }) => {
+    addStep: async (parent, { goalId, name }, context) => {
+      if (context.user){
       const step = await Step.create({ name })
 
       await Goal.findOneAndUpdate(
@@ -75,6 +77,20 @@ const resolvers = {
         { $addToSet: { steps: step._id }})
 
       return step
+    }
+    throw new AuthenticationError('You need to be logged in!');
+    },
+    updateUser: async (parent, { username, email, password  }, context) => {
+      if (context.user) {
+        const saltRounds = 10;
+        const newPass = await bcrypt.hash(password, saltRounds);
+          return await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { username, email, password: newPass },
+            { runValidators: true, new: true }
+          )
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
     updateTodo: async (parent, { _id, name, completed, priority }, context) => { 
       if (context.user) {
@@ -85,7 +101,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     }, 
-    updateGoal: async (parent, { _id, name, completeByDate, completed, priority }) => {
+    updateGoal: async (parent, { _id, name, completeByDate, completed, priority }, context) => {
       if (context.user) {
       return await Goal.findOneAndUpdate(
         { _id },
@@ -94,24 +110,12 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    updateStep: async (parent, { _id, name, completed }) => {
+    updateStep: async (parent, { _id, name, completed }, context) => {
       if (context.user) {
       return await Step.findOneAndUpdate(
       { _id },
       { name, completed },
       { runValidators: true, new: true })
-    }
-    throw new AuthenticationError('You need to be logged in!');
-    },
-    removeStep: async(parent, { _id, goalId}) => {
-      if (context.user) {
-      const step = await Step.findOneAndDelete({ _id })
-
-      await Goal.findOneAndUpdate(
-        { _id: goalId},
-        { $pull: { steps: step._id}})
-
-      return step
     }
     throw new AuthenticationError('You need to be logged in!');
     },
@@ -136,6 +140,18 @@ const resolvers = {
         { $pull: { goals: goal._id}})
 
       return goal
+    }
+    throw new AuthenticationError('You need to be logged in!');
+    },
+    removeStep: async(parent, { _id, goalId }, context) => {
+      if (context.user) {
+      const step = await Step.findOneAndDelete({ _id })
+
+      await Goal.findOneAndUpdate(
+        { _id: goalId},
+        { $pull: { steps: step._id}})
+
+      return step
     }
     throw new AuthenticationError('You need to be logged in!');
     },
@@ -175,6 +191,15 @@ const resolvers = {
         { $addToSet: { goals: goal._id }})
 
       return goal
+    },
+    updateUserDevelopment: async (parent, { oldEmail, username, email, password  }, context) => {
+      const saltRounds = 10;
+      const newPass = await bcrypt.hash(password, saltRounds);
+        return await User.findOneAndUpdate(
+          { email: oldEmail },
+          { username, email, password: newPass },
+          { runValidators: true, new: true }
+        )
     },
 
   },

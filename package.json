@@ -9,7 +9,9 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
-    "watch": "nodemon server/server.js"
+    "watch": "nodemon server/server.js",
+    "heroku-postbuild": "npm run install && npm run build",
+    "server": "nodemon server.js"
   },
   "keywords": [],
   "author": "",

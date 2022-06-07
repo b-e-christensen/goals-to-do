@@ -19,13 +19,12 @@ const Todo = (props) => {
 
   // submit form
   const handleFormSubmit = async (event) => {
-    //event.preventDefault();
-    console.log(formState);
+    event.preventDefault();
+
     try {
       const { data } = await addTodo({
         variables: { ...formState },
       });
-
       console.log(data);
     } catch (e) {
       console.error(e);
@@ -37,10 +36,6 @@ const Todo = (props) => {
       priority: '',
     });
   };
-  const options = [
-    'one', 'two', 'three'
-  ];
-  const defaultOption = options[0];
 
   return (
     <main className="flex-row justify-center mb-4">
@@ -48,11 +43,6 @@ const Todo = (props) => {
         <div className="card">
           <h4 className="card-header bg-dark text-light p-2">Create To Do</h4>
           <div className="card-body">
-            {data ? (
-              <p>
-                Success!
-              </p>
-            ) : (
               <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
@@ -78,16 +68,15 @@ const Todo = (props) => {
                   Submit
                 </button>
               </form>
-            )}
-
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}
               </div>
             )}
           </div>
-        </div>
+        </div> 
         <TODOCard />
+       
       </div>
     </main>
   );

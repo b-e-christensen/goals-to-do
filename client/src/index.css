@@ -423,7 +423,7 @@ button {
 }
 
 a {
-  color: #1b89bc;
+  /* color: #1b89bc; */
   text-decoration: none;
 }
 
@@ -463,6 +463,10 @@ a:hover {
 
 .w-fit-content {
   width: fit-content;
+}
+
+.h-fit-content {
+  height: fit-content;
 }
 
 .min-100-vh {
@@ -1824,6 +1828,11 @@ label form [type='radio'] {
   margin-top: 1rem;
 }
 
+.line-through {
+  text-decoration: line-through;
+}
+
+/* MODAL STYLING */
 .App {
   font-family: sans-serif;
   text-align: center;
