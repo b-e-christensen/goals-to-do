@@ -15,14 +15,19 @@ html {
 .light {
   --background: white;
   --text-primary: black;
-  --text-secondary: royalblue;
-  --accent: purple;
+  --text-secondary: white;
+  --border-main: black;
+  --border-secondary: black;
+  --special-text-fill: white;
 }
 .dark {
   --background: black;
   --text-primary: white;
-  --text-secondary: grey;
-  --accent: darkred;
+  --text-secondary: hsl(125, 100%, 79%);
+  --border-secondary: hsl(348, 100%, 60%);
+  --border-main: rgb(85, 255, 33);
+  --special-text-fill: hsl(125, 100%, 79%);
+  --special-case-color: hsl(348, 100%, 60%);
 }
 /* Sections
    ========================================================================== */
@@ -32,6 +37,7 @@ html {
 body {
   margin: 0;
   background-color: var(--background);
+  color: var(--text-primary);
 }
 
 /**
@@ -373,7 +379,6 @@ body {
     Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
   font-size: 16px;
-  color: #1a1a1a;
 }
 
 h1,
@@ -436,7 +441,6 @@ button {
 }
 
 a {
-  /* color: #1b89bc; */
   text-decoration: none;
 }
 
@@ -446,8 +450,8 @@ a:hover {
 }
 
 .b-border {
-  border-bottom: .2rem black dotted;
-  border-left: .2rem black dotted;
+  border-bottom: .2rem var(--border-secondary) dotted;
+  border-left: .2rem var(--border-secondary)  dotted;
   padding: 1rem;
 }
 
@@ -916,7 +920,7 @@ a:hover {
 }
 
 .text-primary {
-  color: #2d3e50 !important;
+  color: var(--text-secondary) !important;
 }
 
 .text-info {
@@ -932,7 +936,7 @@ a:hover {
 }
 
 .text-light {
-  color: #d9e9e8 !important;
+  color: var(--text-secondary) !important;
 }
 
 .text-dark {
@@ -1123,7 +1127,7 @@ a:hover {
 
 .card .card-header {
   padding: 0.375rem;
-  background-color: #2d3e50;
+  background-color: var(--background);
   color: #d9e9e8;
 }
 
@@ -1178,8 +1182,8 @@ form .form-label {
 form .form-input {
   width: 100%;
   padding: 0.75rem;
-  color: #1a1a1a;
-  background-color: #ffffff;
+  color: var(--text-primary);
+  background-color: var(--background);
   margin: 0.625rem 0;
   font-size: 1.2rem;
   border: 1px solid #484848;
@@ -1767,10 +1771,12 @@ label form [type='radio'] {
   margin-left: 18%;
   display: flex;
   flex-wrap: wrap;
+  
 }
 
 .start-card-content {
   display: flex;
+  color: var(--special-text);
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
@@ -1780,7 +1786,7 @@ label form [type='radio'] {
   text-decoration: none;
   font-size: 2rem;
   text-align: center;
-  color: white;
+  color: var(--special-text);
   padding: 3rem;
   width: 100%;
   min-width: 100%;
@@ -1857,8 +1863,7 @@ label form [type='radio'] {
   border-radius: 5px;
   border: none;
   outline: none;
-  background: crimson;
-  color: white;
+  color: var(--text-primary);
   cursor: pointer;
 }
 #portal .container {
@@ -1872,7 +1877,7 @@ label form [type='radio'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--background)
 }
 .container .modal {
   z-index: 100 !important; 
@@ -1907,4 +1912,24 @@ label form [type='radio'] {
   }
 }
 
-main { background-color: var(--background);}
+main, section, div { background-color: var(--background);}
+
+.nav-card-header, h6 {
+  color: var(--text-primary);
+}
+
+.nav-card-header a{
+  color: var(--text-primary);
+}
+
+h2 {
+  color: var(--text-primary);
+}
+
+.card-text, label, .small {
+  color: var(--text-primary);
+}
+
+.start-card a{
+  color: var(--special-text-fill);
+}
