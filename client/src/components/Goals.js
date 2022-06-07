@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_GOAL, EDIT_GOAL } from '../utils/mutations';
+import { ADD_GOAL } from '../utils/mutations';
 import GoalCard from './GoalCard'
 // Here we are importing a CSS file as a dependency
 import '../styles/Header.css';

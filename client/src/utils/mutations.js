@@ -78,6 +78,14 @@ mutation AddStep($goalId: String!, $name: String!) {
 }
 `;
 
+export const EDIT_TODO = gql`
+mutation AddStep($goalId: String!, $name: String!) {
+  addStep(goalId: $goalId, name: $name) {
+    name
+  }
+}
+`;
+
 
 
 export const UPDATE_TODO = gql`
