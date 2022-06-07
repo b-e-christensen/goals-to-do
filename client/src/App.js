@@ -16,6 +16,8 @@ import Signup from './pages/Signup'
 import Start from './components/Start'
 import TodoDashboard from './pages/TodoDashboard';
 import GoalDashboard from './pages/GoalDashboard'
+
+import useLocalStorage from 'use-local-storage'
 //import Auth from './utils/auth';
 
 // Construct our main GraphQL API endpoint
@@ -44,6 +46,16 @@ const client = new ApolloClient({
 
 
 function App() {
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+  const el = document.getElementById('root')
+  el.classList.add(`${theme}`)
+  
+  const switchTheme = () => {
+    el.classList.remove(`${theme}`)
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme)
+  }
 
   return (
     <ApolloProvider client={client}>

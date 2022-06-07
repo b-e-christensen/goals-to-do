@@ -16,13 +16,18 @@ html {
   --background: white;
   --text-primary: black;
   --text-secondary: white;
-  --accent: purple;
+  --border-main: black;
+  --border-secondary: black;
+  --special-text-fill: white;
 }
 .dark {
   --background: black;
   --text-primary: white;
-  --text-secondary: rgb(25, 255, 33);
-  --accent: darkred;
+  --text-secondary: hsl(125, 100%, 79%);
+  --border-secondary: hsl(348, 100%, 60%);
+  --border-main: rgb(85, 255, 33);
+  --special-text-fill: hsl(125, 100%, 79%);
+  --special-case-color: hsl(348, 100%, 60%);
 }
 /* Sections
    ========================================================================== */
@@ -445,8 +450,8 @@ a:hover {
 }
 
 .b-border {
-  border-bottom: .2rem black dotted;
-  border-left: .2rem black dotted;
+  border-bottom: .2rem var(--border-secondary) dotted;
+  border-left: .2rem var(--border-secondary)  dotted;
   padding: 1rem;
 }
 
@@ -1766,10 +1771,12 @@ label form [type='radio'] {
   margin-left: 18%;
   display: flex;
   flex-wrap: wrap;
+  
 }
 
 .start-card-content {
   display: flex;
+  color: var(--special-text);
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
@@ -1779,7 +1786,7 @@ label form [type='radio'] {
   text-decoration: none;
   font-size: 2rem;
   text-align: center;
-  color: var(--text-primary);
+  color: var(--special-text);
   padding: 3rem;
   width: 100%;
   min-width: 100%;
@@ -1856,7 +1863,6 @@ label form [type='radio'] {
   border-radius: 5px;
   border: none;
   outline: none;
-  background: crimson;
   color: var(--text-primary);
   cursor: pointer;
 }
@@ -1908,7 +1914,7 @@ label form [type='radio'] {
 
 main, section, div { background-color: var(--background);}
 
-.nav-card-header {
+.nav-card-header, h6 {
   color: var(--text-primary);
 }
 
@@ -1922,4 +1928,8 @@ h2 {
 
 .card-text, label, .small {
   color: var(--text-primary);
+}
+
+.start-card a{
+  color: var(--special-text-fill);
 }
