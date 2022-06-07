@@ -7,7 +7,6 @@ import { UPDATE_TODO, REMOVE_TODO } from '../utils/mutations';
 const TODOCard = (props) => {
   const [updateTodo] = useMutation(UPDATE_TODO);
   const [removeTodo] = useMutation(REMOVE_TODO);
-
   const { loading, data, refetch } = useQuery(GET_USER_ALL);
 
   useEffect(() => {

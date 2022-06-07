@@ -17,6 +17,7 @@
     "react-dropdown": "^1.10.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.1",
+    "use-local-storage": "^2.3.6",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
