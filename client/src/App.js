@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './pages/Login'
+import ProfilePage from './pages/ProfilePage';
 import Signup from './pages/Signup'
 import Start from './components/Start'
 import TodoDashboard from './pages/TodoDashboard';
@@ -70,6 +71,10 @@ function App() {
               <Route
                 path="/goals"
                 element={<GoalDashboard />}
+              />
+               <Route
+                path="/profile"
+                element={<ProfilePage />}
               />
             </Routes>
           </div>
