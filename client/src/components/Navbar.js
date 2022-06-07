@@ -19,8 +19,6 @@ function Navbar({ currentPage, handlePageChange }) {
   }
 
 
-
-  console.log(document.getElementsByTagName('body'))
   return (
     <div className='nav-card'>
       <div className='nav-card-header'>
