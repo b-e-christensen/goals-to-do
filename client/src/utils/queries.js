@@ -3,6 +3,8 @@ import { gql } from '@apollo/client';
 export const GET_USER_ALL = gql`
 query Query {
     getUser {
+      username
+      email
       goals {
         name
         completeByDate
