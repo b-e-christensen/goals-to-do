@@ -127,3 +127,23 @@ export const REMOVE_STEP = gql`
     }
   }
 `;
+
+export const ADD_COLLABORATOR = gql`
+  mutation addCollaborator($email: String!, $id: String!) {
+  addCollaborator(email: $email, _id: $id) {
+    name
+    _id
+  }
+}
+`
+
+export const ADD_TASK = gql`
+  mutation addTask($name: String!, $projectId: String!, $priority: String!, $assignees: [String]) {
+    addTask(name: $name, projectId: $projectId, priority: $priority, assignees: $assignees) {
+      _id
+      name
+      creator
+      asignees
+    }
+  }
+`

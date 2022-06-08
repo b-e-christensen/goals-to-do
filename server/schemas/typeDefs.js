@@ -8,11 +8,12 @@ const typeDefs = gql`
     password: String
     goals: [Goal]!
     todos: [Todo]!
+    projects: [ProjectBoard]!
   }
 
   type Todo {
     _id: ID
-    name: String,
+    name: String
     completed: Boolean
     priority: String
   }
@@ -32,6 +33,31 @@ const typeDefs = gql`
     completed: Boolean
   }
 
+  type Collaborators {
+    name: String
+    email: String
+  }
+
+  input AssigneesInput {
+    assignee: String
+  }
+
+  type ProjectBoard {
+    _id: ID
+    name: String
+    collaborators: [Collaborators]
+    tasks: [Task]!
+  }
+
+  type Task {
+    _id: ID
+    name: String
+    completed: Boolean
+    priority: String
+    creator: String
+    asignees: [String]
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -40,8 +66,10 @@ const typeDefs = gql`
 type Query {
   get: [User]
   getUser: User
+  getSingleProject(_id: String!): ProjectBoard
   # ---- development query -----
   getUserDevelopment(email: String!): User
+  getBoardDevelopment(_id: String): ProjectBoard
 }
 
   type Mutation {
@@ -59,7 +87,18 @@ type Query {
     removeTodo(_id: String!): Todo
     removeGoal(_id: String!): Goal
     removeStep(_id: String! goalId: String!): Step
+
+    addCollaborator(email: String!, _id: String!): ProjectBoard
+    addTask(name: String!, assignees: [String], projectId: String!, priority: String!): Task
+
     # MUTATIONS FOR DEVELOPMENT (to be able to make certain calls without being logged in)
+    createProjectBoardDevelopment(userId: String!, name: String!): ProjectBoard
+    
+    createTaskDevelopment(boardId: String!, userId: String!, name: String!, priority: String!): Task
+
+
+
+
     removeTodoDevelopment(_id: String!, email: String!): Todo
     removeGoalDevelopment(_id: String!, email: String!): Goal
     addTodoDevelopment(email: String!, name: String!, priority: String!): Todo

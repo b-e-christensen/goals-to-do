@@ -462,6 +462,21 @@ a:hover {
 }
 
 /* HEIGHT / WIDTH UTILS */
+.overflow-scroll {
+  overflow: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.overflow-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.overflow-scroll {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
 .w-100 {
   width: 100%;
 }
@@ -484,6 +499,10 @@ a:hover {
 
 .h-fit-content {
   height: fit-content;
+}
+
+.h-100 {
+  height: 100px;
 }
 
 .min-100-vh {
@@ -1877,13 +1896,14 @@ label form [type='radio'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--background)
+  background: var(--background);
+  
 }
 .container .modal {
   z-index: 100 !important; 
   width: 350px;
   height: 220px;
-  background: white;
+  background: whitesmoke;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1932,4 +1952,31 @@ h2 {
 
 .start-card a{
   color: var(--special-text-fill);
+}
+
+.plus {
+  --b: 4px; /* the thickness */
+  width: 40px; /* the size */
+  aspect-ratio: 1;
+  border: 10px solid #00BE8F; /* the outer space */
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#00BE8F 90deg,#fff 0) 
+    calc(100% + var(--b)/2) calc(100% + var(--b)/2)/
+    calc(50%  + var(--b))   calc(50%  + var(--b));
+  display: inline-block;
+}
+
+.radius {
+  border-radius: 50%;
+}
+
+.minus {
+  --b: 4px; /* the thickness */
+  width: 40px; /* the size */
+  aspect-ratio: 1;
+  border: 10px solid #00BE8F; /* the outer space */
+  display: inline-block;
+  color: black;
+  font-weight: bold;
+  cursor: default;
 }

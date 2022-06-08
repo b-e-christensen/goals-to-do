@@ -16,8 +16,9 @@ import Signup from './pages/Signup'
 import Start from './components/Start'
 import TodoDashboard from './pages/TodoDashboard';
 import GoalDashboard from './pages/GoalDashboard'
-
+import ProjectDashboard from './pages/ProjectDashboard'
 import useLocalStorage from 'use-local-storage'
+import SingleProject from './components/SingleProject';
 //import Auth from './utils/auth';
 
 // Construct our main GraphQL API endpoint
@@ -50,7 +51,7 @@ function App() {
   const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
   const el = document.getElementById('root')
   el.classList.add(`${theme}`)
-  
+
   const switchTheme = () => {
     el.classList.remove(`${theme}`)
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -84,7 +85,15 @@ function App() {
                 path="/goals"
                 element={<GoalDashboard />}
               />
-               <Route
+              <Route
+                path="/projects"
+                element={<ProjectDashboard />}
+              />
+              <Route
+                path="/projects/:projectId"
+                element={<SingleProject />}
+              />
+              <Route
                 path="/profile"
                 element={<ProfilePage />}
               />
