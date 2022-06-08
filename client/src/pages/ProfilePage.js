@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { UPDATE_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { GET_USER_ALL } from '../utils/queries'
+import Navbar from '../components/Navbar'
 
 const ProfilePage = (props) => {
     const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login] = useMutation(LOGIN_USER);
+  const [updateUser] = useMutation(UPDATE_USER);
   const { loading, data, refetch } = useQuery(GET_USER_ALL);
   const userInfo = data?.getUser || {};
 
@@ -26,27 +27,26 @@ const ProfilePage = (props) => {
     event.preventDefault();
     console.log(formState);
     try {
-      const { data } = await login({
+      await updateUser({
         variables: { ...formState },
       });
-
-      Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
 
-    // clear form values
     setFormState({
       email: '',
       password: '',
       username: '',
     });
+    refetch()
   };
 
 
   return (
   
-
+    <main className="flex-row justify-center mb-4">
+        <Navbar/>
         <div className="col-12 col-lg-10">
         {userInfo ? (    
         <div className="card">
@@ -89,7 +89,7 @@ const ProfilePage = (props) => {
         </div>) : ('')
 }
       </div>
-    
+    </main>
       
   )};
 
