@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const Goal = require('./Goal');
 const Todo = require('./Todo');
+const ProjectBoard = require('./ProjectBoard');
 
 const userSchema = new Schema({
   username: {
@@ -23,6 +24,7 @@ const userSchema = new Schema({
   },  
   goals: { type: Array, ref: Goal },
   todos: { type: Array, ref: Todo },
+  projects: { type: Array, ref: ProjectBoard}
 });
 
 userSchema.pre('save', async function (next) {
