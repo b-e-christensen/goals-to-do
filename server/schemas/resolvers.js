@@ -162,6 +162,8 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
+
+    
     addCollaborator: async (parent, { _id, email }, context) => {
       const newCollaborator = await User.findOneAndUpdate(
         { email },
@@ -184,27 +186,24 @@ const resolvers = {
 
       return task
     },
+    addProject: async (parent, { name }, context) => {
+      if (context.user) {
+        const user = await User.findOne({ _id: context.user._id })
 
+        const board = await ProjectBoard.create({ name, collaborators: { email: user.email, name: user.username } })
 
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { projects: board._id } },
+          { runValidators: true, new: true })
 
-
-
+        return board
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
 
 
     // MUTATIONS FOR DEVELOPMENT (to be able to make certain calls without being logged in)
-    createProjectBoardDevelopment: async (parent, { name, userId }, context) => {
-
-      const user = await User.findOne({ _id: userId })
-
-      const board = await ProjectBoard.create({ name, collaborators: { email: user.email, name: user.username } })
-
-      await User.findOneAndUpdate(
-        { _id: userId },
-        { $addToSet: { projects: board._id } },
-        { runValidators: true, new: true })
-
-      return board
-    },
     createTaskDevelopment: async (parent, { _id, userId, name, priority }, context) => {
       const task = await Task.create({ creator: userId, name, priority })
 
@@ -215,15 +214,6 @@ const resolvers = {
 
       return task
     },
-
-
-
-
-
-
-
-
-
     removeTodoDevelopment: async (parent, { _id, email }) => {
       const todo = await Todo.findOneAndDelete({ _id })
 

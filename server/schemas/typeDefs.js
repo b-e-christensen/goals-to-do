@@ -55,7 +55,7 @@ const typeDefs = gql`
     completed: Boolean
     priority: String
     creator: String
-    asignees: [String]
+    assignees: [String]
   }
 
   type Auth {
@@ -90,9 +90,9 @@ type Query {
 
     addCollaborator(email: String!, _id: String!): ProjectBoard
     addTask(name: String!, assignees: [String], projectId: String!, priority: String!): Task
+    addProject(name: String!): ProjectBoard
 
     # MUTATIONS FOR DEVELOPMENT (to be able to make certain calls without being logged in)
-    createProjectBoardDevelopment(userId: String!, name: String!): ProjectBoard
     
     createTaskDevelopment(boardId: String!, userId: String!, name: String!, priority: String!): Task
 
