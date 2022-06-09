@@ -25,6 +25,7 @@ function Navbar({ currentPage, handlePageChange }) {
         <Link to="/todos">To Do</Link>
         <Link to="/goals">Goals</Link>
         <Link to="/projects">Projects</Link>
+        <Link to="/profile">Profile</Link>
         <button aria-label="Changes light and dark mode" id="darkmode-button" className="nav-link-dark" onClick={switchTheme}>
                         <img src={ThemeSVG} className="nav-link-dark-img"></img>
                         </button>
