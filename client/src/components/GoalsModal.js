@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
-import { EDIT_GOAL } from '../utils/mutations';
+import { UPDATE_GOAL } from '../utils/mutations';
 
-const StepModal = ({ setShowModal, goalId }) => {
+const GoalsModal = ({ setShowModal, goalId }) => {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
@@ -12,9 +12,9 @@ const StepModal = ({ setShowModal, goalId }) => {
     }
   };
 
-  const [formState, setFormState] = useState({ name: '', goalId: goalId });
+  const [formState, setFormState] = useState({ name: '', priority: 'Low', completeByDate: '', completed: false, _id: goalId });
   // const [addStep, { error, data }] = useMutation(ADD_STEP);
-  const [addStep, { error, data }] = useMutation(EDIT_GOAL);
+  const [updateGoal] = useMutation(UPDATE_GOAL);
 
   console.log(formState)
   // update state based on form input changes
@@ -31,7 +31,7 @@ const StepModal = ({ setShowModal, goalId }) => {
     event.preventDefault();
     console.log(formState);
     try {
-      const { data } = await addStep({
+      const { data } = await updateGoal({
         variables: { ...formState },
       });
       console.log(formState);
@@ -43,6 +43,10 @@ const StepModal = ({ setShowModal, goalId }) => {
     // clear form values
     setFormState({
       name: '',
+      priority: 'Low',
+      completeByDate: '',
+      _id: goalId,
+      completed: false
     });
   };
 
@@ -51,15 +55,37 @@ const StepModal = ({ setShowModal, goalId }) => {
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal display-flex flex-column">
         <h5 className='m-3'>Edit Goal</h5>
-        <form className='w-75' onSubmit={handleFormSubmit}>
-          <input
-            className="form-input"
-            placeholder="Name of goal"
-            name="name"
-            type="text"
-            value={formState.name}
-            onChange={handleChange}
-          />
+        <form onSubmit={handleFormSubmit}>
+                <input
+                  className="form-input"
+                  placeholder="Name of goal"
+                  name="name"
+                  type="text"
+                  value={formState.goal}
+                  onChange={handleChange}
+                />
+                <label>
+                  Priority
+                  <select
+                    className="form-input"
+                    placeholder="Priority"
+                    name="priority"
+                    value={formState.priority}
+                    onChange={handleChange}
+                  >
+                    <option value='Low'>Low</option>
+                    <option value='Medium'>Medium</option>
+                    <option value='High'>High</option>
+                  </select>
+                </label>
+                <input
+                  className="form-input"
+                  placeholder="Date to complete by"
+                  name="completeByDate"
+                  type="date"
+                  value={formState.completeByDate}
+                  onChange={handleChange}
+                />
           <button
             className="btn btn-block btn-info"
             style={{ cursor: 'pointer' }}
@@ -75,4 +101,4 @@ const StepModal = ({ setShowModal, goalId }) => {
   );
 };
 
-export default StepModal;
+export default GoalsModal;
