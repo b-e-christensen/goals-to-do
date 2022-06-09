@@ -7,7 +7,6 @@
     min-height: 50;
     line-height: 3.5;
     font-size: 1.2rem;
-    color: white;
     padding: 0 20px;
     /* display: flex;
     flex-wrap: wrap; */
@@ -23,7 +22,6 @@
 }
 
 .nav-card-header button {
-    color: #f6f6f8fc;
     background-color: #02ca8b;
     max-width: 7rem;
     font-weight: bold;
@@ -37,6 +35,7 @@
         top: 0;
         right: 0;
         height: 100%;
+        border: #017128 solid .018rem;
 }
 
 
