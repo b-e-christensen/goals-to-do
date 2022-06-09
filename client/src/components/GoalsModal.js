@@ -13,8 +13,7 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
   };
 
   const [formState, setFormState] = useState({ name: '', priority: 'Low', completeByDate: '', completed: false, _id: goalId });
-  // const [addStep, { error, data }] = useMutation(ADD_STEP);
-  const [updateGoal] = useMutation(UPDATE_GOAL);
+  const [updateGoal, { error, data }] = useMutation(UPDATE_GOAL);
 
   console.log(formState)
   // update state based on form input changes
@@ -45,7 +44,6 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
       name: '',
       priority: 'Low',
       completeByDate: '',
-      _id: goalId,
       completed: false
     });
   };
@@ -61,7 +59,7 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
                   placeholder="Name of goal"
                   name="name"
                   type="text"
-                  value={formState.goal}
+                  value={formState.name}
                   onChange={handleChange}
                 />
                 <label>

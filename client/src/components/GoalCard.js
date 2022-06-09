@@ -77,10 +77,9 @@ const GoalCard = (props) => {
                       <h5>{goal.name}</h5>
                     </Card.Title>
                     <div className='b-border display-flex justify-space-between'>
-                            <h6>Step(s) to complete {goal.name}</h6>
-                            <button className='w-fit-content' onClick={openGoalModal}>Edit Goal</button>
-                            {showGoalModal ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={goal._id} /> : null}
-                          </div>
+                      <button className='w-fit-content' onClick={openGoalModal}>Edit Goal</button>
+                      {showGoalModal ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={goal._id} /> : null}
+                    </div>
                     <div className='display-flex justify-space-between'>
                       <Card.Text>
                         <div className='w-fit-content display-flex flex-column mt-5'>
