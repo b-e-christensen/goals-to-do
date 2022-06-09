@@ -4,7 +4,7 @@ import { ADD_TODO } from '../utils/mutations';
 import TODOCard from './TODOCard';
 
 const Todo = (props) => {
-  const [formState, setFormState] = useState({ name: '', priority: '' });
+  const [formState, setFormState] = useState({ name: 'None Given', priority: 'Low' });
   const [addTodo, { error, data }] = useMutation(ADD_TODO);
 
   // update state based on form input changes
@@ -32,8 +32,8 @@ const Todo = (props) => {
 
     // clear form values
     setFormState({
-      name: '',
-      priority: '',
+      name: 'None Given',
+      priority: 'Low',
     });
   };
 
