@@ -6,7 +6,8 @@ function Header() {
     return (
 
         <header className="header">
-            <h1>To Do or not To Do</h1>
+            <h1>Hamlet</h1>
+            <h6 className='text-center'><i>-- to do or not to do --</i></h6>
         </header>
     );
 }

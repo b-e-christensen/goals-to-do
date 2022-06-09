@@ -1980,3 +1980,9 @@ h2 {
   font-weight: bold;
   cursor: default;
 }
+
+.created-by {
+  font-size: 14px;
+  font-style: italic;
+  margin: 10px;
+}

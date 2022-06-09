@@ -1,20 +1,27 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GET_SINGLE_PROJECT } from '../utils/queries';
-import { Container, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import CollaboratorModal from './CollaboratorModal'
 import { ADD_TASK } from '../utils/mutations';
+import TaskCard from './TaskCard';
 
 function SingleProject() {
   const { projectId } = useParams()
-  const { loading, data } = useQuery(GET_SINGLE_PROJECT, {
+  console.log(projectId)
+  const { loading, data, refetch } = useQuery(GET_SINGLE_PROJECT, {
     variables: { id: projectId },
   })
 
   const project = data?.getSingleProject || []
   const collaborators = project.collaborators || []
+
+  useEffect(() => {
+    refetch()
+  })
+  
+  console.log(project)
 
   const [formDisplayState, setFormDisplayState] = useState('collapsed')
   const [formState, setFormState] = useState({ name: '', priority: 'Low' });
@@ -182,11 +189,11 @@ function SingleProject() {
 
               </div>
             </div>
-            {/* <TaskCard /> */}
+            
           </div>
         </main>
       )}
-
+        <TaskCard projectId={projectId}/>
     </>
   )
 }

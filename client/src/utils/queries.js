@@ -42,7 +42,7 @@ export const GET_PROJECTS = gql`
         completed
         priority
         creator
-        asignees
+        assignees
         _id
       }
     }
@@ -65,7 +65,7 @@ query GetSingleProject($id: String!) {
       completed
       priority
       creator
-      asignees
+      assignees
     }
   }
 }

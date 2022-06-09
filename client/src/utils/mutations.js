@@ -86,8 +86,6 @@ mutation AddStep($goalId: String!, $name: String!) {
 }
 `;
 
-
-
 export const UPDATE_TODO = gql`
   mutation updateTodo($_id: String!, $name: String!, $completed: Boolean!, $priority: String!) {
     updateTodo(_id: $_id, name: $name, completed: $completed, priority: $priority) {
@@ -135,7 +133,7 @@ export const ADD_COLLABORATOR = gql`
     _id
   }
 }
-`
+`;
 
 export const ADD_TASK = gql`
   mutation addTask($name: String!, $projectId: String!, $priority: String!, $assignees: [String]) {
@@ -143,7 +141,16 @@ export const ADD_TASK = gql`
       _id
       name
       creator
-      asignees
+      assignees
     }
   }
+`;
+
+export const ADD_PROJECT = gql`
+  mutation addProject($name: String!) {
+  addProject(name: $name) {
+    _id
+    name
+  }
+}
 `
