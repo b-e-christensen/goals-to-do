@@ -1901,8 +1901,8 @@ label form [type='radio'] {
 }
 .container .modal {
   z-index: 100 !important; 
-  width: 350px;
-  height: 220px;
+  width: fit-content;
+  height: fit-content;
   background: whitesmoke;
   display: flex;
   align-items: center;
