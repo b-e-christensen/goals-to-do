@@ -29,7 +29,7 @@ function Navbar({ currentPage, handlePageChange }) {
         <button aria-label="Changes light and dark mode" id="darkmode-button" className="nav-link-dark" onClick={switchTheme}>
                         <img src={ThemeSVG} className="nav-link-dark-img"></img>
                         </button>
-        <button onClick={Auth.logout} className="logout-btn">Logout</button>
+        <button onClick={Auth.logout} className="logout-btn custom-color-m">Logout</button>
         </div>
 
     </div>

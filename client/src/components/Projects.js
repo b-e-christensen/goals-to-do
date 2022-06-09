@@ -4,8 +4,14 @@ import { GET_PROJECTS } from '../utils/queries';
 import { Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { ADD_PROJECT } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 function Projects() {
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+  if(!token) {
+      window.location.href = "/"
+  }
 
   const { loading, data, refetch } = useQuery(GET_PROJECTS)
   
@@ -52,12 +58,12 @@ function Projects() {
       <div>
         {formDisplayState ? (
           <div className='flex-display flex-row justify-center align-center w-100 mt-4'>
-            <h4>Your Projects</h4>
+            <h4 className='custom-color-m'>Your Projects</h4>
             <div className='plus radius ml-5' onClick={() => (setFormDisplayState(''))}></div>
           </div>) : (
           <main className="flex-row justify-center mb-4">
-            <div className="col-12 col-lg-10">
-            <h4 className='text-center mt-4'>Your Projects</h4>
+            <div className="col-12 col-lg-10 custom-color-m">
+            <h4 className='text-center mt-4 custom-color-m'>Your Projects</h4>
               <div className="card">
                 <div className="w-100 text-center card-header bg-dark text-light p-2 display-flex justify-space-between align-center">
                   <h4>Create A Project</h4>
