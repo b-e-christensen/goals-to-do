@@ -37,7 +37,7 @@ const SignupForm = () => {
       console.log(data);
 
       if (error) {
-        throw new Error('something went wrong!');
+        throw new Error('Something went wrong!');
       }
 
       // const { token, user } = await response.json();
@@ -58,15 +58,15 @@ const SignupForm = () => {
   return (
     <>
       {/* This is needed for the validation functionality above */}
-      <Form className='sub-container' noValidate validated={validated} onSubmit={handleFormSubmit}>
-        {/* show alert if server response is bad */}
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your signup!
-        </Alert>
-
-        <Form.Group className='form-group-custom'>
+      <main className="flex-row justify-center mb-4">
+      <div className="col-12 col-lg-10">
+        <div className="card">
+        <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
+        <div className="card-body">
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        <Form.Group className='form-group-custom '>
           <Form.Label htmlFor='username'>Username</Form.Label>
-          <Form.Control
+          <Form.Control className="form-input"
             type='text'
             placeholder='Your username'
             name='username'
@@ -79,7 +79,7 @@ const SignupForm = () => {
 
         <Form.Group className='form-group-custom'>
           <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
+          <Form.Control className="form-input"
             type='email'
             placeholder='Your email address'
             name='email'
@@ -92,7 +92,7 @@ const SignupForm = () => {
 
         <Form.Group className='form-group-custom'>
           <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
+          <Form.Control className="form-input"
             type='password'
             placeholder='Your password'
             name='password'
@@ -102,13 +102,25 @@ const SignupForm = () => {
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
         </Form.Group>
-        <Button
+        <Button  className="btn btn-block btn-info"
           disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           type='submit'
           variant='success'>
           Submit
         </Button>
+       
       </Form>
+      {error && (
+        <Alert className="my-3 p-3 bg-danger text-white" show={showAlert} key='danger' variant='danger'>
+                <Button
+                    variant="danger" onClick={() => setShowAlert(false)}>
+                    {error.message}
+                </Button>
+        </Alert>)}
+      </div>
+      </div>
+      </div>
+      </main>
     </>
   );
 };
