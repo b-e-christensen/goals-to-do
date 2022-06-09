@@ -3,18 +3,17 @@ import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
 import { UPDATE_GOAL } from '../utils/mutations';
 
-const GoalsModal = ({ setShowModal, goalId }) => {
+const GoalsModal = ({ setShowGoalModal, goalId }) => {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
     if (e.target === modalRef.current) {
-      setShowModal(false);
+      setShowGoalModal(false);
     }
   };
 
   const [formState, setFormState] = useState({ name: '', priority: 'Low', completeByDate: '', completed: false, _id: goalId });
-  // const [addStep, { error, data }] = useMutation(ADD_STEP);
-  const [updateGoal] = useMutation(UPDATE_GOAL);
+  const [updateGoal, { error, data }] = useMutation(UPDATE_GOAL);
 
   console.log(formState)
   // update state based on form input changes
@@ -45,7 +44,6 @@ const GoalsModal = ({ setShowModal, goalId }) => {
       name: '',
       priority: 'Low',
       completeByDate: '',
-      _id: goalId,
       completed: false
     });
   };
@@ -61,7 +59,7 @@ const GoalsModal = ({ setShowModal, goalId }) => {
                   placeholder="Name of goal"
                   name="name"
                   type="text"
-                  value={formState.goal}
+                  value={formState.name}
                   onChange={handleChange}
                 />
                 <label>
@@ -94,7 +92,7 @@ const GoalsModal = ({ setShowModal, goalId }) => {
             Submit
           </button>
         </form>
-        <button className='modal-button w-25' onClick={() => setShowModal(false)}>X</button>
+        <button className='modal-button w-25' onClick={() => setShowGoalModal(false)}>X</button>
       </div>
     </div>,
     document.getElementById("portal")

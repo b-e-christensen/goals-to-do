@@ -17,7 +17,8 @@ const GoalCard = (props) => {
   const userInfo = data?.getUser.goals || [];
 
   const [userState, setUserState] = useState([...userInfo])
-  const [showModal, setShowModal] = useState(false)
+  const [showStepModal, setShowStepModal] = useState(false)
+  const [showGoalModal, setShowGoalModal] = useState(false)
   const [stepState, setStepState] = useState([])
   const [viewState, setViewState] = useState('incomplete')
 
@@ -34,8 +35,12 @@ const GoalCard = (props) => {
     stepArray = Object.keys(stepState)
   }
 
-  const openModal = () => {
-    setShowModal(true)
+  const openStepModal = () => {
+    setShowStepModal(true)
+  }
+
+  const openGoalModal = () => {
+    setShowGoalModal(true)
   }
 
   const showSteps = (goalId) => {
@@ -72,10 +77,9 @@ const GoalCard = (props) => {
                       <h5>{goal.name}</h5>
                     </Card.Title>
                     <div className='b-border display-flex justify-space-between'>
-                            <h6>Step(s) to complete {goal.name}</h6>
-                            <button className='w-fit-content' onClick={openModal}>Edit Goal</button>
-                            {showModal ? <GoalsModal setShowModal={setShowModal} goalId={goal._id} /> : null}
-                          </div>
+                      <button className='w-fit-content' onClick={openGoalModal}>Edit Goal</button>
+                      {showGoalModal ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={goal._id} /> : null}
+                    </div>
                     <div className='display-flex justify-space-between'>
                       <Card.Text>
                         <div className='w-fit-content display-flex flex-column mt-5'>
@@ -101,8 +105,8 @@ const GoalCard = (props) => {
                         <div key={goal._id} className='mt-3 ml-5'>
                           <div className='b-border display-flex justify-space-between'>
                             <h6>Step(s) to complete {goal.name}</h6>
-                            <button className='w-fit-content' onClick={openModal}>Add Step</button>
-                            {showModal ? <StepModal setShowModal={setShowModal} goalId={goal._id} /> : null}
+                            <button className='w-fit-content' onClick={openStepModal}>Add Step</button>
+                            {showStepModal ? <StepModal setShowStepModal={setShowStepModal} goalId={goal._id} /> : null}
                           </div>
                           <div className='display-flex flex-column'>
                             {goal.steps.map((step) => (
@@ -189,8 +193,8 @@ const GoalCard = (props) => {
                         <div key={goal._id} className='mt-3 ml-5'>
                           <div className='b-border display-flex justify-space-between'>
                             <h6>Step(s) to complete {goal.name}</h6>
-                            <button className='w-fit-content' onClick={openModal}>Add Step</button>
-                            {showModal ? <StepModal setShowModal={setShowModal} goalId={goal._id} /> : null}
+                            <button className='w-fit-content' onClick={openStepModal}>Add Step</button>
+                            {showStepModal ? <StepModal setShowStepModal={setShowStepModal} goalId={goal._id} /> : null}
                           </div>
                           <div className='display-flex flex-column'>
                             {goal.steps.map((step) => (

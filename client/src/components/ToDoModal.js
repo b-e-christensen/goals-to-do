@@ -3,12 +3,12 @@ import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
 import { EDIT_TODO } from '../utils/mutations';
 
-const StepModal = ({ setShowModal, goalId }) => {
+const StepModal = ({ setShowStepModal, goalId }) => {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
     if (e.target === modalRef.current) {
-      setShowModal(false);
+      setShowStepModal(false);
     }
   };
 
@@ -68,7 +68,7 @@ const StepModal = ({ setShowModal, goalId }) => {
             Submit
           </button>
         </form>
-        <button className='modal-button w-25' onClick={() => setShowModal(false)}>X</button>
+        <button className='modal-button w-25' onClick={() => setShowStepModal(false)}>X</button>
       </div>
     </div>,
     document.getElementById("portal")
