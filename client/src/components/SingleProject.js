@@ -6,8 +6,16 @@ import Navbar from './Navbar';
 import CollaboratorModal from './CollaboratorModal'
 import { ADD_TASK } from '../utils/mutations';
 import TaskCard from './TaskCard';
+import Auth from '../utils/auth';
 
 function SingleProject() {
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+  if(!token) {
+      window.location.href = "/"
+  }
+
+
   const { projectId } = useParams()
   console.log(projectId)
   const { loading, data, refetch } = useQuery(GET_SINGLE_PROJECT, {
@@ -106,15 +114,15 @@ function SingleProject() {
     <>
       <Navbar />
       <div className='display-flex h-100'>
-        <div className='w-75 display-flex justify-center align-center'><h4 className='text-center'>{project.name}</h4></div>
+        <div className='w-75 display-flex justify-center align-center'><h4 className='text-center custom-color-m'>{project.name}</h4></div>
         <div className='w-25 overflow-scroll'>
-          <div className='display-flex justify-space-between mr-3 mt-3 align-items'><h4>Collaborators</h4><div className='plus radius' onClick={openModal}></div>
+          <div className='display-flex justify-space-between mr-3 mt-3 align-items'><h4 className='custom-color-m'>Collaborators</h4><div className='plus radius' onClick={openModal}></div>
             {showModal ? <CollaboratorModal setShowModal={setShowModal} projectId={projectId} /> : null}
           </div>
           {collaborators.map((collaborator) => {
             return (
               <div>
-                <p>{collaborator.name} - {collaborator.email}</p>
+                <p className='custom-color-m'>{collaborator.name} - {collaborator.email}</p>
               </div>
             )
           })}

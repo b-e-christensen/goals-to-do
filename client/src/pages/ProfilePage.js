@@ -7,6 +7,13 @@ import { GET_USER_ALL } from '../utils/queries'
 import Navbar from '../components/Navbar'
 
 const ProfilePage = (props) => {
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+  if(!token) {
+      window.location.href = "/"
+  }
+
+
     const [formState, setFormState] = useState({ email: '', password: '' });
   const [updateUser] = useMutation(UPDATE_USER);
   const { loading, data, refetch } = useQuery(GET_USER_ALL);
