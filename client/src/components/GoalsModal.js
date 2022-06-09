@@ -3,12 +3,12 @@ import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
 import { UPDATE_GOAL } from '../utils/mutations';
 
-const GoalsModal = ({ setShowModal, goalId }) => {
+const GoalsModal = ({ setShowGoalModal, goalId }) => {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
     if (e.target === modalRef.current) {
-      setShowModal(false);
+      setShowGoalModal(false);
     }
   };
 
@@ -94,7 +94,7 @@ const GoalsModal = ({ setShowModal, goalId }) => {
             Submit
           </button>
         </form>
-        <button className='modal-button w-25' onClick={() => setShowModal(false)}>X</button>
+        <button className='modal-button w-25' onClick={() => setShowGoalModal(false)}>X</button>
       </div>
     </div>,
     document.getElementById("portal")
