@@ -51,7 +51,7 @@ const TODOCard = (props) => {
                             
                             <button key={todo._id} id={todo._id} 
                              className='w-fit-content' onClick={() => openToDoModal (todo._id)}>Edit TODO</button>
-                            {showToDoModal.boolean ? <ToDoModal setShowToDoModal={setShowToDoModal} todoId={todo._id} /> : null}
+                            {showToDoModal.boolean ? <ToDoModal setShowToDoModal={setShowToDoModal} todoId={showToDoModal.todoId} /> : null}
                           </div>
                     <div className='display-flex justify-space-between'>
                       <div className='w-fit-content display-flex flex-column mt-5'>
