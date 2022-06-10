@@ -8,7 +8,8 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
   const modalRef = useRef();
   const closeModal = (e) => {
     if (e.target === modalRef.current) {
-      setShowGoalModal(false);
+      // refactored state here to have boolean as a value as that is what the ternary is checking to be true or false
+      setShowGoalModal({ boolean: false });
     }
   };
 
@@ -16,6 +17,7 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
   const [updateGoal, { error, data }] = useMutation(UPDATE_GOAL);
 
   console.log(formState)
+
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -92,7 +94,8 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
             Submit
           </button>
         </form>
-        <button className='modal-button w-25' onClick={() => setShowGoalModal(false)}>X</button>
+        {/* refactored state again to have boolean as a value */}
+        <button className='modal-button w-25' onClick={() => setShowGoalModal({ boolean: false})}>X</button>
       </div>
     </div>,
     document.getElementById("portal")

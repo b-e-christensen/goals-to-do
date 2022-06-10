@@ -18,7 +18,8 @@ const GoalCard = (props) => {
 
   const [userState, setUserState] = useState([...userInfo])
   const [showStepModal, setShowStepModal] = useState(false)
-  const [showGoalModal, setShowGoalModal] = useState(false)
+  // changed goalModal state to be able to hold boolean value and goalId value
+  const [showGoalModal, setShowGoalModal] = useState({ boolean: false, goalId: ''})
   const [stepState, setStepState] = useState([])
   const [viewState, setViewState] = useState('incomplete')
 
@@ -39,8 +40,9 @@ const GoalCard = (props) => {
     setShowStepModal(true)
   }
 
-  const openGoalModal = () => {
-    setShowGoalModal(true)
+  const openGoalModal = (param) => {
+    // param holds the goal id made from the button click. its stored in state to pass it to GoalModal component
+    setShowGoalModal({ boolean: true, goalId: param})
   }
 
   const showSteps = (goalId) => {
@@ -76,10 +78,11 @@ const GoalCard = (props) => {
                     <Card.Title className='text-center'>
                       <h5>{goal.name}</h5>
                     </Card.Title>
-                    <div className='b-border display-flex justify-space-between'>
-                      <button className='w-fit-content' onClick={openGoalModal}>Edit Goal</button>
-                      {showGoalModal ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={goal._id} /> : null}
-                    </div>
+                      
+                      <button key={goal._id} id={goal._id} className='w-fit-content' onClick={() => openGoalModal(goal._id)}>Edit Goal</button>
+                      {/* we are now checking if the boolean field of the state to be true or not to render modal. then we pass through the field of goalId to get the proper id to GoalsModal component */}
+                      {showGoalModal.boolean ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={showGoalModal.goalId} /> : null}
+
                     <div className='display-flex justify-space-between'>
                       <Card.Text>
                         <div className='w-fit-content display-flex flex-column mt-5'>
