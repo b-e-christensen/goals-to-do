@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
 import { UPDATE_TODO } from '../utils/mutations';
 
-const ToDoModal = ({ setShowToDoModal, goalId }) => {
+const ToDoModal = ({ setShowToDoModal, todoId }) => {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
@@ -12,7 +12,7 @@ const ToDoModal = ({ setShowToDoModal, goalId }) => {
     }
   };
 
-  const [formState, setFormState] = useState({ name: 'none given', priority: 'low', completed: false,  _id: goalId });
+  const [formState, setFormState] = useState({ name: '', priority: '', completed: false,  _id: todoId });
   
   const [updateToDo, { error, data }] = useMutation(UPDATE_TODO);
 
@@ -42,8 +42,8 @@ const ToDoModal = ({ setShowToDoModal, goalId }) => {
 
     // clear form values
     setFormState({
-      name: 'none given',
-      priority: 'low',
+      name: '',
+      priority: '',
       completed: false
     });
   };

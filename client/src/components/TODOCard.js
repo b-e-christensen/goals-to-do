@@ -6,7 +6,7 @@ import ToDoModal from './ToDoModal'
 import { UPDATE_TODO, REMOVE_TODO } from '../utils/mutations';
 
 const TODOCard = (props) => {
-  const [showToDoModal, setShowToDoModal] = useState({ boolean: false, goalId: ''})
+  const [showToDoModal, setShowToDoModal] = useState({ boolean: false, todoId: ''})
   const [updateTodo] = useMutation(UPDATE_TODO);
   const [removeTodo] = useMutation(REMOVE_TODO);
   const { loading, data, refetch } = useQuery(GET_USER_ALL);
@@ -18,7 +18,7 @@ const TODOCard = (props) => {
   const userInfo = data?.getUser.todos || [];
 
   const openToDoModal = (param) => {
-    setShowToDoModal({ boolean: true, goalId: param})
+    setShowToDoModal({ boolean: true, todoId: param})
   }
 
   const [viewState, setViewState] = useState('incomplete')
@@ -48,9 +48,10 @@ const TODOCard = (props) => {
 
                     <div className='b-border display-flex justify-space-between'>
                             <h6>{todo.name}</h6>
-
-                            <button className='w-fit-content' onClick={openToDoModal}>Edit TODO</button>
-                            {showToDoModal.boolean ? <ToDoModal setShowToDoModal={setShowToDoModal} goalId={todo._id} /> : null}
+                            
+                            <button key={todo._id} id={todo._id} 
+                             className='w-fit-content' onClick={() => openToDoModal (todo._id)}>Edit TODO</button>
+                            {showToDoModal.boolean ? <ToDoModal setShowToDoModal={setShowToDoModal} todoId={todo._id} /> : null}
                           </div>
                     <div className='display-flex justify-space-between'>
                       <div className='w-fit-content display-flex flex-column mt-5'>
