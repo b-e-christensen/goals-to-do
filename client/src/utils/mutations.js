@@ -71,15 +71,6 @@ export const ADD_TODO = gql`
 `;
 
 
-
-export const EDIT_TODO = gql`
-mutation AddStep($goalId: String!, $name: String!) {
-  addStep(goalId: $goalId, name: $name) {
-    name
-  }
-}
-`;
-
 export const UPDATE_TODO = gql`
   mutation updateTodo($_id: String!, $name: String!, $completed: Boolean!, $priority: String!) {
     updateTodo(_id: $_id, name: $name, completed: $completed, priority: $priority) {

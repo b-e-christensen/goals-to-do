@@ -58,7 +58,7 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
         <form onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
-                  placeholder="Name of goal"
+                  placeholder="Name of Goal"
                   name="name"
                   type="text"
                   value={formState.name}
