@@ -1,20 +1,20 @@
 import React, { useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
-import { EDIT_TODO } from '../utils/mutations';
+import { UPDATE_TODO } from '../utils/mutations';
 
-const StepModal = ({ setShowStepModal, goalId }) => {
+const ToDoModal = ({ setShowToDoModal, goalId }) => {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
     if (e.target === modalRef.current) {
-      setShowStepModal(false);
+      setShowToDoModal({ boolean: false });
     }
   };
 
-  const [formState, setFormState] = useState({ name: '', goalId: goalId });
-  // const [addStep, { error, data }] = useMutation(ADD_STEP);
-  const [addStep, { error, data }] = useMutation(EDIT_TODO);
+  const [formState, setFormState] = useState({ name: 'none given', priority: 'low', completed: false,  _id: goalId });
+  
+  const [updateToDo, { error, data }] = useMutation(UPDATE_TODO);
 
   console.log(formState)
   // update state based on form input changes
@@ -31,7 +31,7 @@ const StepModal = ({ setShowStepModal, goalId }) => {
     event.preventDefault();
     console.log(formState);
     try {
-      const { data } = await addStep({
+      const { data } = await updateToDo({
         variables: { ...formState },
       });
       console.log(formState);
@@ -42,7 +42,9 @@ const StepModal = ({ setShowStepModal, goalId }) => {
 
     // clear form values
     setFormState({
-      name: '',
+      name: 'none given',
+      priority: 'low',
+      completed: false
     });
   };
 
@@ -51,15 +53,23 @@ const StepModal = ({ setShowStepModal, goalId }) => {
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal display-flex flex-column">
         <h5 className='m-3'>Edit TODO</h5>
-        <form className='w-75' onSubmit={handleFormSubmit}>
-          <input
-            className="form-input"
-            placeholder="Name of TODO"
-            name="name"
-            type="text"
-            value={formState.name}
-            onChange={handleChange}
-          />
+        <form onSubmit={handleFormSubmit}>
+                <input
+                  className="form-input"
+                  placeholder="Name of ToDo"
+                  name="name"
+                  type="text"
+                  value={formState.todo}
+                  onChange={handleChange}
+                />
+                <label>
+                  Priority
+                  <select value={formState.priority} onChange={handleChange} name="priority" className="form-input">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </label>
           <button
             className="btn btn-block btn-info"
             style={{ cursor: 'pointer' }}
@@ -68,11 +78,11 @@ const StepModal = ({ setShowStepModal, goalId }) => {
             Submit
           </button>
         </form>
-        <button className='modal-button w-25' onClick={() => setShowStepModal(false)}>X</button>
+        <button className='modal-button w-25' onClick={() => setShowToDoModal({ boolean: false})}>X</button>
       </div>
     </div>,
     document.getElementById("portal")
   );
 };
 
-export default StepModal;
+export default ToDoModal;
