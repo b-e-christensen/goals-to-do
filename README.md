@@ -22,8 +22,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![generated HTML screen shot](./images/goalstodo.png)
-
+![generated HTML screen shot](./images/goalstodolight.png)
+![generated HTML screen shot](./images/goalstododark.png)
 
 
 
@@ -69,9 +69,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -124,17 +122,15 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://newsapi.org/](https://newsapi.org/)
-
-2. Clone the GitHub repository:
+1. Clone the GitHub repository:
    ```sh
    git clone https://github.com/b-e-christensen/goals-to-do
    ```
-3. Install NPM packages:
+2. Install NPM packages:
    ```sh
    cd goals-to-do && npm install
 
-4. Configure the .env file with:
+3. Configure the .env file with:
    ```js
     SESS_SECRET=<secure key for cookie gen>
    ```
@@ -146,7 +142,7 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-1. Sign up and Log into your To Do or not To Do account.
+1. Sign up and Log into your Hamlet, To Do or not To Do account.
 
 2. Create a To Do.
 
