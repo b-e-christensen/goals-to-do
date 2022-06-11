@@ -11,13 +11,12 @@ import Auth from '../utils/auth';
 function SingleProject() {
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  if(!token) {
-      window.location.href = "/"
+  if (!token) {
+    window.location.href = "/"
   }
 
-
   const { projectId } = useParams()
-  console.log(projectId)
+
   const { loading, data, refetch } = useQuery(GET_SINGLE_PROJECT, {
     variables: { id: projectId },
   })
@@ -28,7 +27,7 @@ function SingleProject() {
   useEffect(() => {
     refetch()
   })
-  
+
   console.log(project)
 
   const [formDisplayState, setFormDisplayState] = useState('collapsed')
@@ -45,10 +44,6 @@ function SingleProject() {
 
   let assigneesArr = [...assigneesState]
 
-  console.log(assigneesArr)
-  console.log(assigneesState)
-
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -63,18 +58,15 @@ function SingleProject() {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
-    console.log([...assigneesState])
     const arrOfObj = []
     assigneesArr.map((assignee) => {
       arrOfObj.push({
         assignee
       })
-    } )
-    console.log(arrOfObj)
+    })
     try {
       const { data } = await addTask({
-        variables: { 
+        variables: {
           name: formState.name,
           priority: formState.priority,
           assignees: [...assigneesState],
@@ -116,13 +108,13 @@ function SingleProject() {
       <div className='display-flex h-100'>
         <div className='w-75 display-flex justify-center align-center'><h4 className='text-center custom-color-m'>{project.name}</h4></div>
         <div className='w-25 overflow-scroll'>
-          <div className='display-flex justify-space-between mr-3 mt-3 align-items'><h4 className='custom-color-m'>Collaborators</h4><div className='plus radius' onClick={openModal}></div>
+          <div className='display-flex justify-space-between mr-3 mt-2 align-items'><h4 className='custom-color-m'>Collaborators</h4><div className='plus radius' onClick={openModal}></div>
             {showModal ? <CollaboratorModal setShowModal={setShowModal} projectId={projectId} /> : null}
           </div>
           {collaborators.map((collaborator) => {
             return (
               <div>
-                <p className='custom-color-m'>{collaborator.name} - {collaborator.email}</p>
+                <p className='custom-color-m m-0'>{collaborator.name} - {collaborator.email}</p>
               </div>
             )
           })}
@@ -197,11 +189,11 @@ function SingleProject() {
 
               </div>
             </div>
-            
+
           </div>
         </main>
       )}
-        <TaskCard projectId={projectId}/>
+      <TaskCard projectId={projectId} />
     </>
   )
 }
