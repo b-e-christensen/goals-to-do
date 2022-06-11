@@ -25,11 +25,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!')
     },
-    // QUERY FOR DEVELOPMENT
-    getUserDevelopment: async (parent, { email }, context) => {
-
-      return await User.findOne({ email }).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps' }).populate('projects').populate({ path: 'projects', populate: 'collaborators' })
-    },
   },
 
   Mutation: {
@@ -166,9 +161,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-
-
-
     addCollaborator: async (parent, { _id, email }, context) => {
       if (context.user) {
         const user = await User.findOne({ email })
@@ -188,7 +180,7 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
     addTask: async (parent, { name, assignees, projectId, priority }, context) => {
-      console.log(assignees)
+      if (context.user) {
       const user = await User.findOne({ _id: context.user._id })
       const task = await Task.create({ name, assignees, priority, creator: user.username })
       await ProjectBoard.findOneAndUpdate(
@@ -196,6 +188,8 @@ const resolvers = {
         { $addToSet: { tasks: task._id } })
 
       return task
+    }
+    throw new AuthenticationError('You need to be logged in!');
     },
     addProject: async (parent, { name }, context) => {
       if (context.user) {
@@ -212,65 +206,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-
-
-    // MUTATIONS FOR DEVELOPMENT (to be able to make certain calls without being logged in)
-    createTaskDevelopment: async (parent, { _id, userId, name, priority }, context) => {
-      const task = await Task.create({ creator: userId, name, priority })
-
-      await ProjectBoard.findOneAndUpdate(
-        { _id },
-        { $addToSet: { tasks: task._id } },
-        { runValidators: true, new: true })
-
-      return task
-    },
-    removeTodoDevelopment: async (parent, { _id, email }) => {
-      const todo = await Todo.findOneAndDelete({ _id })
-
-      await User.findOneAndUpdate(
-        { email },
-        { $pull: { todos: todo._id } })
-
-      return todo
-    },
-    removeGoalDevelopment: async (parent, { _id, email }) => {
-      const goal = await Goal.findOneAndDelete({ _id })
-
-      await User.findOneAndUpdate(
-        { email },
-        { $pull: { goals: goal._id } })
-
-      return goal
-    },
-    addTodoDevelopment: async (parent, { email, name, priority }) => {
-      const todo = await Todo.create({ name, priority })
-
-      await User.findOneAndUpdate(
-        { email },
-        { $addToSet: { todos: todo._id } })
-
-      return todo
-    },
-    addGoalDevelopment: async (parent, { email, name, completeByDate, priority }) => {
-      const goal = await Goal.create({ name, completeByDate, priority })
-
-      await User.findOneAndUpdate(
-        { email },
-        { $addToSet: { goals: goal._id } })
-
-      return goal
-    },
-    updateUserDevelopment: async (parent, { oldEmail, username, email, password }, context) => {
-      const saltRounds = 10;
-      const newPass = await bcrypt.hash(password, saltRounds);
-      return await User.findOneAndUpdate(
-        { email: oldEmail },
-        { username, email, password: newPass },
-        { runValidators: true, new: true }
-      )
-    },
-
   },
 };
 
