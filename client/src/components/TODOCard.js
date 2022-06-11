@@ -9,7 +9,7 @@ const TODOCard = (props) => {
   const [showToDoModal, setShowToDoModal] = useState({ boolean: false, todoId: ''})
   const [updateTodo] = useMutation(UPDATE_TODO);
   const [removeTodo] = useMutation(REMOVE_TODO);
-  const { loading, data, refetch } = useQuery(GET_USER_ALL);
+  const { data, refetch } = useQuery(GET_USER_ALL);
 
   useEffect(() => {
     refetch()
@@ -50,7 +50,7 @@ const TODOCard = (props) => {
                             <h6>{todo.name}</h6>
                             
                             <button key={todo._id} id={todo._id} 
-                             className='w-fit-content' onClick={() => openToDoModal (todo._id)}>Edit TODO</button>
+                             className='w-fit-content' onClick={() => openToDoModal (todo._id)}>Edit</button>
                             {showToDoModal.boolean ? <ToDoModal setShowToDoModal={setShowToDoModal} todoId={showToDoModal.todoId} /> : null}
                           </div>
                     <div className='display-flex justify-space-between'>

@@ -5,7 +5,7 @@ import { GET_SINGLE_PROJECT } from '../utils/queries';
 
 function TaskCard({ projectId }) {
 
-  const { loading, data, refetch } = useQuery(GET_SINGLE_PROJECT, {
+  const { data } = useQuery(GET_SINGLE_PROJECT, {
     variables: { id: projectId },
   })
 

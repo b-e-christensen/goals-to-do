@@ -17,7 +17,7 @@ function SingleProject() {
 
   const { projectId } = useParams()
 
-  const { loading, data, refetch } = useQuery(GET_SINGLE_PROJECT, {
+  const { data, refetch } = useQuery(GET_SINGLE_PROJECT, {
     variables: { id: projectId },
   })
 
@@ -60,10 +60,13 @@ function SingleProject() {
     event.preventDefault();
     const arrOfObj = []
     assigneesArr.map((assignee) => {
+      return ( // Not returning here will cause console warn 
       arrOfObj.push({
         assignee
       })
+      )
     })
+    
     try {
       const { data } = await addTask({
         variables: {

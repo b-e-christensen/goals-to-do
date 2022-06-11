@@ -13,7 +13,7 @@ function Projects() {
       window.location.href = "/"
   }
 
-  const { loading, data, refetch } = useQuery(GET_PROJECTS)
+  const { data, refetch } = useQuery(GET_PROJECTS)
   
   const userInfo = data?.getUser.projects || []
   const allData = data?.getUser || []

@@ -14,7 +14,7 @@ const StepModal = ({ setShowStepModal, goalId }) => {
 
   const [formState, setFormState] = useState({ name: '', goalId: goalId });
   // const [addStep, { error, data }] = useMutation(ADD_STEP);
-  const [addStep, { error, data }] = useMutation(ADD_STEP);
+  const [addStep] = useMutation(ADD_STEP);
 
   console.log(formState)
   // update state based on form input changes

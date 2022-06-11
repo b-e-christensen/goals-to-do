@@ -5,7 +5,7 @@ import TODOCard from './TODOCard';
 
 const Todo = (props) => {
   const [formState, setFormState] = useState({ name: 'None Given', priority: 'Low' });
-  const [addTodo, { error, data }] = useMutation(ADD_TODO);
+  const [addTodo, { error }] = useMutation(ADD_TODO);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -22,10 +22,10 @@ const Todo = (props) => {
     event.preventDefault();
 
     try {
-      const { data } = await addTodo({
+      await addTodo({
         variables: { ...formState },
       });
-      console.log(data);
+
     } catch (e) {
       console.error(e);
     }

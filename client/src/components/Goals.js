@@ -8,8 +8,8 @@ import '../styles/Header.css';
 function Goals() {
 
   const [formState, setFormState] = useState({ name: '', priority: 'Low', completeByDate: '' });
-  const [addGoal, { error, data }] = useMutation(ADD_GOAL);
-  console.log(formState)
+  const [addGoal, { error }] = useMutation(ADD_GOAL);
+
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,12 +23,12 @@ function Goals() {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+
     try {
-      const { data } = await addGoal({
+       await addGoal({
         variables: { ...formState },
       });
-      console.log(data);
+      
     } catch (e) {
       console.error(e);
     }
