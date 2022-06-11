@@ -40,12 +40,7 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
     }
 
     // clear form values
-    setFormState({
-      name: '',
-      priority: 'Low',
-      completeByDate: '',
-      completed: false
-    });
+    setShowGoalModal({ boolean: false });
   };
 
   //render the modal JSX in the portal div.

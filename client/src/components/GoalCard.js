@@ -4,6 +4,7 @@ import { Container, Card } from 'react-bootstrap';
 import { GET_USER_ALL } from '../utils/queries'
 import StepModal from './StepModal'
 import GoalsModal from './GoalsModal'
+import GearButton from './GearButton'
 import { UPDATE_STEP, REMOVE_STEP, UPDATE_GOAL, REMOVE_GOAL } from '../utils/mutations';
 
 
@@ -19,7 +20,7 @@ const GoalCard = (props) => {
   // const [userState, setUserState] = useState([...userInfo]) unused vars 
   const [showStepModal, setShowStepModal] = useState(false)
   // changed goalModal state to be able to hold boolean value and goalId value
-  const [showGoalModal, setShowGoalModal] = useState({ boolean: false, goalId: ''})
+  const [showGoalModal, setShowGoalModal] = useState({ boolean: false, goalId: '' })
   const [stepState, setStepState] = useState([])
   const [viewState, setViewState] = useState('incomplete')
 
@@ -42,7 +43,7 @@ const GoalCard = (props) => {
 
   const openGoalModal = (param) => {
     // param holds the goal id made from the button click. its stored in state to pass it to GoalModal component
-    setShowGoalModal({ boolean: true, goalId: param})
+    setShowGoalModal({ boolean: true, goalId: param })
   }
 
   const showSteps = (goalId) => {
@@ -75,13 +76,12 @@ const GoalCard = (props) => {
               goal.completed ? ('') : (
                 <Card key={goal._id} border='dark'>
                   <Card.Body>
-                    <Card.Title className='text-center custom-fill-secondary'>
-                      <h5>{goal.name}</h5>
+                    <Card.Title className='display-flex custom-fill-secondary'>
+                      <h5 className='col-11 text-center'>{goal.name}</h5>
+                      <GearButton className='col-1 gear-button' onClick={() => openGoalModal(goal._id)} />
                     </Card.Title>
-                      
-                      <button key={goal._id} id={goal._id} className='w-fit-content custom-btn-clr custom-btn-width ' onClick={() => openGoalModal(goal._id)}>Edit Goal</button>
-                      {/* we are now checking if the boolean field of the state to be true or not to render modal. then we pass through the field of goalId to get the proper id to GoalsModal component */}
-                      {showGoalModal.boolean ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={showGoalModal.goalId} /> : null}
+
+                    {showGoalModal.boolean ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={showGoalModal.goalId} /> : null}
 
                     <div className='display-flex justify-space-between'>
                       <Card.Text>
@@ -168,8 +168,9 @@ const GoalCard = (props) => {
               goal.completed ? (
                 <Card key={goal._id} border='dark'>
                   <Card.Body>
-                    <Card.Title className='text-center'>
-                      <h5>{goal.name}</h5>
+                    <Card.Title className='display-flex custom-fill-secondary'>
+                      <h5 className='col-11 text-center'>{goal.name}</h5>
+                      <GearButton className='col-1 gear-button' onClick={() => openGoalModal(goal._id)} />
                     </Card.Title>
                     <div className='display-flex justify-space-between'>
                       <Card.Text>
