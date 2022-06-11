@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
@@ -16,7 +15,7 @@ const ProfilePage = (props) => {
 
     const [formState, setFormState] = useState({ email: '', password: '' });
   const [updateUser] = useMutation(UPDATE_USER);
-  const { loading, data, refetch } = useQuery(GET_USER_ALL);
+  const { data, refetch } = useQuery(GET_USER_ALL);
   const userInfo = data?.getUser || {};
 
   // update state based on form input changes

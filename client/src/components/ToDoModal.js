@@ -14,7 +14,7 @@ const ToDoModal = ({ setShowToDoModal, todoId }) => {
 
   const [formState, setFormState] = useState({ name: '', priority: '', completed: false,  _id: todoId });
   
-  const [updateToDo, { error, data }] = useMutation(UPDATE_TODO);
+  const [updateToDo] = useMutation(UPDATE_TODO);
 
   console.log(formState)
   // update state based on form input changes

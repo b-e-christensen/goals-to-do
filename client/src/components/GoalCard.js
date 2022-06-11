@@ -8,7 +8,7 @@ import { UPDATE_STEP, REMOVE_STEP, UPDATE_GOAL, REMOVE_GOAL } from '../utils/mut
 
 
 const GoalCard = (props) => {
-  const { loading, data, refetch } = useQuery(GET_USER_ALL);
+  const { data, refetch } = useQuery(GET_USER_ALL);
 
   useEffect(() => {
     refetch()
@@ -16,7 +16,7 @@ const GoalCard = (props) => {
 
   const userInfo = data?.getUser.goals || [];
 
-  const [userState, setUserState] = useState([...userInfo])
+  // const [userState, setUserState] = useState([...userInfo]) unused vars 
   const [showStepModal, setShowStepModal] = useState(false)
   // changed goalModal state to be able to hold boolean value and goalId value
   const [showGoalModal, setShowGoalModal] = useState({ boolean: false, goalId: ''})

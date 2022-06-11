@@ -9,7 +9,6 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Custom components and page loads 
 import Header from './components/Header';
-import Footer from './components/Footer';
 import Login from './pages/Login'
 import ProfilePage from './pages/ProfilePage';
 import Signup from './pages/Signup'
@@ -19,7 +18,7 @@ import GoalDashboard from './pages/GoalDashboard'
 import ProjectDashboard from './pages/ProjectDashboard'
 import useLocalStorage from 'use-local-storage'
 import SingleProject from './components/SingleProject';
-//import Auth from './utils/auth';
+
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -47,16 +46,10 @@ const client = new ApolloClient({
 
 
 function App() {
-  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+  const defaultLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  const [theme] = useLocalStorage('theme', defaultLight ? 'dark' : 'light');
   const el = document.getElementById('root')
   el.classList.add(`${theme}`)
-
-  const switchTheme = () => {
-    el.classList.remove(`${theme}`)
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme)
-  }
 
   return (
     <ApolloProvider client={client}>
