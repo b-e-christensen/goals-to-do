@@ -139,3 +139,18 @@ export const ADD_PROJECT = gql`
   }
 }
 `
+export const UPDATE_TASK = gql`
+  mutation Mutation($taskId: String!, $name: String!, $priority: String!, $assignees: [String], $completed: Boolean) {
+    updateTask(taskId: $taskId, name: $name, priority: $priority, assignees: $assignees, completed: $completed) {
+      _id
+    }
+  }
+`
+
+export const REMOVE_TASK = gql`
+  mutation removeTask($_id: String!, $projectId: String!) {
+    removeTask(_id: $_id, projectId: $projectId) {
+      _id
+    }
+  }
+`;
