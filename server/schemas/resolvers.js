@@ -16,13 +16,18 @@ const resolvers = {
     },
     getSingleProject: async (parent, { _id }, context) => {
       if (context.user) {
-        return await ProjectBoard.findOne({ _id }).populate('tasks')
+        const user = await User.findOne({ _id: context.user._id })
+        const project = await ProjectBoard.findOne({ _id }).populate('tasks')
+        if (!project.collaborators.filter(e => e.email === user.email)) {
+          window.location.href = "/"
+        }
+        return project
       }
       throw new AuthenticationError('You need to be logged in!')
     },
     // QUERY FOR DEVELOPMENT
     getUserDevelopment: async (parent, { email }, context) => {
-      console.log('route hit')
+
       return await User.findOne({ email }).populate('todos').populate('goals').populate({ path: 'goals', populate: 'steps' }).populate('projects').populate({ path: 'projects', populate: 'collaborators' })
     },
   },
@@ -163,18 +168,24 @@ const resolvers = {
     },
 
 
-    
+
     addCollaborator: async (parent, { _id, email }, context) => {
-      const newCollaborator = await User.findOneAndUpdate(
-        { email },
-        { $addToSet: { projects: _id } },
-        { runValidators: true, new: true })
+      if (context.user) {
+        const user = await User.findOne({ email })
+        if (!user){
+          throw new AuthenticationError('No user with that email exists.')
+        }
+        const newCollaborator = await User.findOneAndUpdate(
+          { email },
+          { $addToSet: { projects: _id } },
+          { runValidators: true, new: true })
 
-      const board = await ProjectBoard.findOneAndUpdate(
-        { _id },
-        { $push: { collaborators: { email: newCollaborator.email, name: newCollaborator.username } } },
-        { runValidators: true, new: true })
-
+        const board = await ProjectBoard.findOneAndUpdate(
+          { _id },
+          { $push: { collaborators: { email: newCollaborator.email, name: newCollaborator.username } } },
+          { runValidators: true, new: true })
+      } 
+      throw new AuthenticationError('You need to be logged in!');
     },
     addTask: async (parent, { name, assignees, projectId, priority }, context) => {
       console.log(assignees)
