@@ -5,6 +5,7 @@ import TODOCard from './TODOCard';
 
 const Todo = (props) => {
   const [formState, setFormState] = useState({ name: 'None Given', priority: 'Low' });
+  const [formDisplayState, setFormDisplayState] = useState('collapsed')
   const [addTodo, { error }] = useMutation(ADD_TODO);
 
   // update state based on form input changes
@@ -38,10 +39,28 @@ const Todo = (props) => {
   };
 
   return (
+    <>
+      {formDisplayState ? (
+        <main className="flex-row justify-center mb-4">
+        <div className="col-12 col-lg-10">
+          <div className="w-100 text-center card-header bg-dark text-light p-2 display-flex justify-space-between align-center">
+            <h4>Create A To Do</h4>
+            <div className='plus radius' onClick={() => (setFormDisplayState(''))}></div>
+          </div>
+          <div className='m-5'>
+            <TODOCard />
+          </div>
+        </div>  
+        </main>
+      ) : (
+
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Create To Do</h4>
+        <div className="w-100 text-center card-header bg-dark text-light p-2 display-flex justify-space-between align-center">
+                <h4>Create A To Do</h4>
+                <div className='minus' onClick={() => (setFormDisplayState('collapsed'))}>X</div>
+              </div>
           <div className="card-body">
               <form onSubmit={handleFormSubmit}>
                 <input
@@ -78,7 +97,8 @@ const Todo = (props) => {
         <TODOCard />
        
       </div>
-    </main>
+    </main>)}
+    </>
   );
 };
 
