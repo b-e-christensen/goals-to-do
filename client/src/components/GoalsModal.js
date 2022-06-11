@@ -14,9 +14,8 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
   };
 
   const [formState, setFormState] = useState({ name: '', priority: 'Low', completeByDate: '', completed: false, _id: goalId });
-  const [updateGoal, { error, data }] = useMutation(UPDATE_GOAL);
+  const [updateGoal] = useMutation(UPDATE_GOAL);
 
-  console.log(formState)
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -30,13 +29,12 @@ const GoalsModal = ({ setShowGoalModal, goalId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+
     try {
-      const { data } = await updateGoal({
+       await updateGoal({
         variables: { ...formState },
       });
-      console.log(formState);
-      console.log(data);
+
     } catch (e) {
       console.error(e);
     }

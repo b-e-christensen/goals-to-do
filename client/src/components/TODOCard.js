@@ -9,7 +9,7 @@ const TODOCard = (props) => {
   const [showToDoModal, setShowToDoModal] = useState({ boolean: false, todoId: ''})
   const [updateTodo] = useMutation(UPDATE_TODO);
   const [removeTodo] = useMutation(REMOVE_TODO);
-  const { loading, data, refetch } = useQuery(GET_USER_ALL);
+  const { data, refetch } = useQuery(GET_USER_ALL);
 
   useEffect(() => {
     refetch()
@@ -35,14 +35,14 @@ const TODOCard = (props) => {
                 ? `Viewing Incomplete To Do's:`
                 : 'Create a To Do'}
             </h2>
-            <button className='w-fit-content h-fit-content' onClick={() => { setViewState('') }}>View Completed To Do's</button>
+            <button className='w-fit-content h-fit-content custom-btn-clr' onClick={() => { setViewState('') }}>View Completed To Do's</button>
           </div>
           {userInfo.map((todo) => {
             return (
               todo.completed ? ('') :
-                (<Card key={todo._id} border='dark' className='custom-card-width'>
+                (<Card key={todo._id} border='dark ' className='custom-card-width '>
                   <Card.Body id={todo._id}>
-                    <Card.Title className='text-center'>
+                    <Card.Title className='text-center custom-fill-secondary'>
                     <h5>{todo.name}</h5>
                     </Card.Title>
 
@@ -50,7 +50,7 @@ const TODOCard = (props) => {
                             <h6>{todo.name}</h6>
                             
                             <button key={todo._id} id={todo._id} 
-                             className='w-fit-content' onClick={() => openToDoModal (todo._id)}>Edit TODO</button>
+                             className='w-fit-content custom-btn-clr custom-btn-width ' onClick={() => openToDoModal (todo._id)}>Edit</button>
                             {showToDoModal.boolean ? <ToDoModal setShowToDoModal={setShowToDoModal} todoId={showToDoModal.todoId} /> : null}
                           </div>
                     <div className='display-flex justify-space-between'>
@@ -59,11 +59,11 @@ const TODOCard = (props) => {
                         <Card.Text>Incomplete</Card.Text>
                       </div>
                       <div className='w-50 display-flex flex-column justify-space-around align-center'>
-                        <button className='w-fit-content' onClick={(e) => {
+                        <button className='w-fit-content custom-btn-clr custom-btn-width ' onClick={(e) => {
                           updateTodo({ variables: { _id: todo._id, name: todo.name, priority: todo.priority, completed: true } })
                           refetch()
                         }}>Mark as Complete</button>
-                        <button className='w-fit-content' onClick={(e) => {
+                        <button className='w-fit-content custom-btn-clr custom-btn-width' onClick={(e) => {
                           removeTodo({ variables: { _id: todo._id } })
                           refetch()
                         }}>Remove</button>

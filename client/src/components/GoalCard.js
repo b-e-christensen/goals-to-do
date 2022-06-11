@@ -8,7 +8,7 @@ import { UPDATE_STEP, REMOVE_STEP, UPDATE_GOAL, REMOVE_GOAL } from '../utils/mut
 
 
 const GoalCard = (props) => {
-  const { loading, data, refetch } = useQuery(GET_USER_ALL);
+  const { data, refetch } = useQuery(GET_USER_ALL);
 
   useEffect(() => {
     refetch()
@@ -16,7 +16,7 @@ const GoalCard = (props) => {
 
   const userInfo = data?.getUser.goals || [];
 
-  const [userState, setUserState] = useState([...userInfo])
+  // const [userState, setUserState] = useState([...userInfo]) unused vars 
   const [showStepModal, setShowStepModal] = useState(false)
   // changed goalModal state to be able to hold boolean value and goalId value
   const [showGoalModal, setShowGoalModal] = useState({ boolean: false, goalId: ''})
@@ -68,18 +68,18 @@ const GoalCard = (props) => {
                 ? `Viewing Incomplete Goals:`
                 : 'Create a Goal'}
             </h2>
-            <button className='w-fit-content' onClick={() => { setViewState('') }}>View Completed Goals</button>
+            <button className='w-fit-content custom-btn-clr' onClick={() => { setViewState('') }}>View Completed Goals</button>
           </div>
           {userInfo.map((goal) => {
             return (
               goal.completed ? ('') : (
                 <Card key={goal._id} border='dark'>
                   <Card.Body>
-                    <Card.Title className='text-center'>
+                    <Card.Title className='text-center custom-fill-secondary'>
                       <h5>{goal.name}</h5>
                     </Card.Title>
                       
-                      <button key={goal._id} id={goal._id} className='w-fit-content' onClick={() => openGoalModal(goal._id)}>Edit Goal</button>
+                      <button key={goal._id} id={goal._id} className='w-fit-content custom-btn-clr custom-btn-width ' onClick={() => openGoalModal(goal._id)}>Edit Goal</button>
                       {/* we are now checking if the boolean field of the state to be true or not to render modal. then we pass through the field of goalId to get the proper id to GoalsModal component */}
                       {showGoalModal.boolean ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={showGoalModal.goalId} /> : null}
 
@@ -92,12 +92,12 @@ const GoalCard = (props) => {
                         </div>
                       </Card.Text>
                       <div className='w-25 display-flex flex-column justify-space-around align-center'>
-                        <button className='w-fit-content' onClick={(e) => showSteps(goal._id)}>Add/View Steps</button>
-                        <button className='w-fit-content' onClick={(e) => {
+                        <button className='w-fit-content custom-btn-clr custom-btn-width ' onClick={(e) => showSteps(goal._id)}>Add/View Steps</button>
+                        <button className='w-fit-content custom-btn-clr custom-btn-width ' onClick={(e) => {
                           updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: true } })
                           refetch()
                         }}>Mark as Complete</button>
-                        <button className='w-fit-content' onClick={(e) => {
+                        <button className='w-fit-content custom-btn-clr custom-btn-width ' onClick={(e) => {
                           removeGoal({ variables: { _id: goal._id } })
                           refetch()
                         }}>Remove</button>
