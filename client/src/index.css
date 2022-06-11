@@ -19,8 +19,17 @@ html {
   --border-main: black;
   --border-secondary: black;
   --special-text-fill: white;
+  --btn: #1bbc9b;
+  --fill-background: white;
+  --special-case-color: black;
+  --fill-second: rgb(0, 190, 143);
+  --fill-start-page: black;
 }
 .dark {
+  --fill-background: #1a1a1a;
+  --fill-second: #1a1a1a;
+  --fill-start-page: #1a1a1a;
+  --btn: #1bbc9b;
   --background: black;
   --text-primary: white;
   --text-secondary: hsl(125, 100%, 79%);
@@ -1086,8 +1095,8 @@ scrollbar-width: none;  /* Firefox */
 }
 
 .btn.btn-info {
-  background-color: #1bbc9b;
-  color: #ffffff;
+  background-color: var(--btn);
+  color: var(--background);
 }
 
 .btn.btn-info:hover {
@@ -1780,6 +1789,7 @@ label form [type='radio'] {
 .card-title {
   background: rgb(0, 190, 143);
   font-size: 1.5rem;
+  margin-top: 0;
 }
 
 /* Main start page style */
@@ -1809,7 +1819,7 @@ label form [type='radio'] {
   padding: 3rem;
   width: 100%;
   min-width: 100%;
-  background-color: #000000;
+  background-color: var(--fill-start-page);
 }
 
 .start-card-content a:first-child {
@@ -1852,9 +1862,14 @@ label form [type='radio'] {
 }
 
 .custom-card-width {
-  width: 40%;
-  margin-left: 2rem;
+  width: 32%;
 }
+
+.custom-card-width:nth-child(3n+0) {
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+}
+
 .custom-cont-alter h2{
   margin-top: 1rem;
   width: 100%;
@@ -1864,6 +1879,41 @@ label form [type='radio'] {
   display: flex;
   flex-wrap: wrap;
   margin-top: 1rem;
+}
+
+.custom-btn-clr {
+  background-color: var(--btn);
+  color: var(--background);
+  border: none;
+  cursor: pointer;
+}
+
+.custom-btn-width {
+  width: 9.5rem;
+}
+
+.custom-fill a{
+  background-color: var(--fill-background);
+  color: var(--special-case-color);
+}
+
+.custom-fill-secondary {
+  background-color: var(--fill-second);
+  color: var(--special-case-color);
+}
+
+.custom-fill-secondary a{
+  color: var(--special-case-color);
+  text-decoration: none;
+}
+
+.custom-clamp-wide {
+  max-width: 1400px;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: 0;
 }
 
 .line-through {
