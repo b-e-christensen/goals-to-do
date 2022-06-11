@@ -191,6 +191,14 @@ const resolvers = {
     }
     throw new AuthenticationError('You need to be logged in!');
     },
+    updateTask: async (parent, { taskId, name, assignees, priority, completed }, context) => {
+      const task = await Task.findOneAndUpdate(
+        { _id: taskId },
+        { name, assignees, priority, completed },
+        { runValidators: true, new: true })
+
+        return task
+    },
     addProject: async (parent, { name }, context) => {
       if (context.user) {
         const user = await User.findOne({ _id: context.user._id })
@@ -206,7 +214,19 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    removeTask: async (parent, { _id, projectId }, context) => {
+      const task = await Task.findOneAndDelete({ _id })
+
+      await ProjectBoard.findOneAndUpdate(
+        { _id: projectId },
+        { $pull: { tasks: task._id } })
+
+    },
+
+
+
   },
 };
+
 
 module.exports = resolvers;

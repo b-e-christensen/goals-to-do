@@ -41,9 +41,7 @@ const StepModal = ({ setShowStepModal, goalId }) => {
     }
 
     // clear form values
-    setFormState({
-      name: '',
-    });
+    setShowStepModal(false)
   };
 
   //render the modal JSX in the portal div.

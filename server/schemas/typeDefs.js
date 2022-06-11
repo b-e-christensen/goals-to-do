@@ -83,10 +83,12 @@ type Query {
     updateTodo(_id: String!, name: String!, completed: Boolean!, priority: String!): Todo
     updateGoal(_id: String!, name: String!, completeByDate: String!, completed: Boolean!, priority: String!): Goal
     updateStep(_id: String!, name: String!, completed: Boolean!): Step
+    updateTask(taskId: String!, name: String!, assignees: [String], priority: String!, completed: Boolean): Task
 
     removeTodo(_id: String!): Todo
     removeGoal(_id: String!): Goal
     removeStep(_id: String! goalId: String!): Step
+    removeTask(_id: String!, projectId: String!): Task
 
     addCollaborator(email: String!, _id: String!): ProjectBoard
     addTask(name: String!, assignees: [String], projectId: String!, priority: String!): Task

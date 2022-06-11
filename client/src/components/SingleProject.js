@@ -23,12 +23,10 @@ function SingleProject() {
 
   const project = data?.getSingleProject || []
   const collaborators = project.collaborators || []
-
+  
   useEffect(() => {
     refetch()
   })
-
-  console.log(project)
 
   const [formDisplayState, setFormDisplayState] = useState('collapsed')
   const [formState, setFormState] = useState({ name: '', priority: 'Low' });
@@ -196,7 +194,7 @@ function SingleProject() {
           </div>
         </main>
       )}
-      <TaskCard projectId={projectId} />
+      <TaskCard projectId={projectId} collaborators={collaborators} />
     </>
   )
 }
