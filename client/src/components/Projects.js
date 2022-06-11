@@ -97,7 +97,7 @@ function Projects() {
       <Container>
         {userInfo.map((project) => {
           return (
-            <Card className='m-3 '>
+            <Card className='m-3 custom-fill-secondary text-center'>
               <Link
                 to={`/projects/${project._id}`}>
                 <h5 className='m-2'>{project.name}</h5>
