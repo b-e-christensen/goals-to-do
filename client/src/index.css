@@ -2042,3 +2042,8 @@ h2 {
 .custom-color-m {
   color: var(--text-primary);
 }
+
+.gear-button {
+  margin-left: 4%;
+  cursor: pointer;
+}

@@ -12,7 +12,7 @@ const ToDoModal = ({ setShowToDoModal, todoId }) => {
     }
   };
 
-  const [formState, setFormState] = useState({ name: '', priority: '', completed: false,  _id: todoId });
+  const [formState, setFormState] = useState({ name: '', priority: 'High', completed: false,  _id: todoId });
   
   const [updateToDo] = useMutation(UPDATE_TODO);
 
@@ -41,11 +41,7 @@ const ToDoModal = ({ setShowToDoModal, todoId }) => {
     }
 
     // clear form values
-    setFormState({
-      name: '',
-      priority: '',
-      completed: false
-    });
+    setShowToDoModal({ boolean: false });
   };
 
   //render the modal JSX in the portal div.
