@@ -47,7 +47,7 @@ const TaskModal = ({ setShowTaskModal, taskId, collaborators }) => {
           taskId: taskId,
         },
       });
-
+      console.log(data)
     } catch (e) {
       console.error(e);
     }

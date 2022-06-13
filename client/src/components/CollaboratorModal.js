@@ -31,7 +31,7 @@ const CollaboratorNodal = ({ setShowModal, projectId }) => {
       const { data } = await addCollaborator({
         variables: { ...formState },
       });
-      
+      console.log(data)
     } catch (e) {
       console.error(e);
     }

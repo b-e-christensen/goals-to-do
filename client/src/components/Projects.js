@@ -44,7 +44,7 @@ function Projects() {
       const { data } = await addProject({
         variables: { ...formState },
       });
-
+      console.log(data)
     } catch (e) {
       console.error(e);
     }
@@ -66,7 +66,7 @@ function Projects() {
               <div className="card">
                 <div className="w-100 text-center card-header bg-dark text-light p-2 display-flex justify-space-between align-center">
                   <h4>Create A Project</h4>
-                  <div className='minus' onClick={() => (setFormDisplayState('collapsed'))}>X</div>
+                  <div className='minus' onClick={() => (setFormDisplayState('collapsed'))}><span className="custom-color-m">X</span></div>
                 </div>
                 <div className="card-body">
 

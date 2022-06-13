@@ -84,7 +84,7 @@ function SingleProject() {
           projectId: projectId
         },
       });
-
+      console.log(data)
     } catch (e) {
       console.error(e);
     }
@@ -120,10 +120,10 @@ function SingleProject() {
         {currentUser.map((user) => {
           if(+user.lastViewed === project.groupChat.length){
             return (
-            <h5 className='mt-2 pointer' onClick={openChat}>Group Chat: Click here to view messages.</h5>)
+            <h5 className='mt-2 pointer custom-color-m' onClick={openChat}>Group Chat: Click here to view messages.</h5>)
           } else {
             return (
-            <h5 className='mt-2 pointer' onClick={openChat}>Group Chat: You have {project.groupChat.length - (+user.lastViewed)} new message(s).</h5>)
+            <h5 className='mt-2 pointer custom-color-m' onClick={openChat}>Group Chat: You have {project.groupChat.length - (+user.lastViewed)} new message(s).</h5>)
           }
         })}
         
@@ -156,7 +156,7 @@ function SingleProject() {
             <div className="card">
               <div className="w-100 text-center card-header bg-dark text-light p-2 display-flex justify-space-between align-center">
                 <h4>Create A Task</h4>
-                <div className='minus' onClick={() => (setFormDisplayState('collapsed'))}>X</div>
+                <div className='minus' onClick={() => (setFormDisplayState('collapsed'))}><span className="custom-color-m">X</span></div>
               </div>
               <div className="card-body">
 

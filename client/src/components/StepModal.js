@@ -33,7 +33,7 @@ const StepModal = ({ setShowStepModal, goalId }) => {
       const { data } = await addStep({
         variables: { ...formState },
       });
-
+      console.log(data)
     } catch (e) {
       console.error(e);
     }

@@ -34,7 +34,7 @@ const ToDoModal = ({ setShowToDoModal, todoId }) => {
       const { data } = await updateToDo({
         variables: { ...formState },
       });
-
+      console.log(data)
     } catch (e) {
       console.error(e);
     }
