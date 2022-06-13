@@ -16,7 +16,6 @@ const StepModal = ({ setShowStepModal, goalId }) => {
   // const [addStep, { error, data }] = useMutation(ADD_STEP);
   const [addStep] = useMutation(ADD_STEP);
 
-  console.log(formState)
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -29,13 +28,12 @@ const StepModal = ({ setShowStepModal, goalId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+ 
     try {
       const { data } = await addStep({
         variables: { ...formState },
       });
-      console.log(formState);
-      console.log(data);
+
     } catch (e) {
       console.error(e);
     }

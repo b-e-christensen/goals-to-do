@@ -15,6 +15,8 @@ function Projects() {
 
   const { data, refetch } = useQuery(GET_PROJECTS)
   const userInfo = data?.getUser.projects || []
+  const userEmail = data?.getUser.email || []
+
 
   const [removeProject] = useMutation(REMOVE_PROJECT)
 
@@ -38,12 +40,11 @@ function Projects() {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
       const { data } = await addProject({
         variables: { ...formState },
       });
-      console.log(data);
+
     } catch (e) {
       console.error(e);
     }
@@ -94,16 +95,23 @@ function Projects() {
       </div>
       <Container>
         {userInfo.map((project) => {
+          let lastViewed = project.collaborators.filter((collaborator) => collaborator.email === userEmail)
           return (
             <Card className='m-3 display-flex justify-space-between custom-fill-secondary'>
               <Link
                 to={`/projects/${project._id}`}>
-                <h5 className='m-2'>{project.name}</h5>
+                <h5 className='m-2'>{project.name}
+                {project.groupChat.length - +lastViewed[0].lastViewed ? (
+                  <span className="message-time ml-4">
+                  -- <i>you have {project.groupChat.length - (+lastViewed[0].lastViewed)} new message(s)</i>
+                  </span>
+                ) : null }
+                
+                </h5>
               </Link>
               <button className='custom-btn-clr custom-btn-width project-button m-1'
               onClick={(e) => {
                 if(project.collaborators.length === 1) {
-                  console.log('one collab')
                   let deleteProject = prompt(`You are the last person on this project. If you leave it will be deleted permanently. Enter the name of this project, "${project.name}" to delete it.`)
                   if(!deleteProject) {
                     return

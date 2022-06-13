@@ -30,6 +30,7 @@ query Query {
 export const GET_PROJECTS = gql`
   query GetUser {
   getUser {
+    email
     projects {
       name
       _id
@@ -38,6 +39,9 @@ export const GET_PROJECTS = gql`
         email
         lastViewed
       }
+      groupChat {
+      name
+    }
       tasks {
         name
         completed

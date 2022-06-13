@@ -23,10 +23,8 @@ function TaskCard({ projectId, collaborators }) {
   })
 
   const tasks = data?.getSingleProject.tasks || []
-  console.log(tasks)
 
   const openTaskModal = (param) => {
-    console.log(param)
     setShowTaskModal({ boolean: true, taskId: param })
   }
 

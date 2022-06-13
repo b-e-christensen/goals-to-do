@@ -17,7 +17,6 @@ const TaskModal = ({ setShowTaskModal, taskId, collaborators }) => {
   let assigneesArr = [...assigneesState]
 
   const [updateTask] = useMutation(UPDATE_TASK);
-  console.log(formState)
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,7 +39,6 @@ const TaskModal = ({ setShowTaskModal, taskId, collaborators }) => {
     })
 
     try {
-      console.log(assigneesState)
       const { data } = await updateTask({
         variables: {
           name: formState.name,
@@ -49,7 +47,7 @@ const TaskModal = ({ setShowTaskModal, taskId, collaborators }) => {
           taskId: taskId,
         },
       });
-      console.log(data);
+
     } catch (e) {
       console.error(e);
     }
