@@ -36,6 +36,7 @@ export const GET_PROJECTS = gql`
       collaborators {
         name
         email
+        lastViewed
       }
       tasks {
         name
@@ -48,7 +49,7 @@ export const GET_PROJECTS = gql`
     }
   }
 }
-`
+`;
 
 export const GET_SINGLE_PROJECT = gql`
 query GetSingleProject($id: String!) {
@@ -57,6 +58,13 @@ query GetSingleProject($id: String!) {
     name
     collaborators {
       name
+      email
+      lastViewed
+    }
+    groupChat {
+      name
+      message
+      time
       email
     }
     tasks {
@@ -70,3 +78,11 @@ query GetSingleProject($id: String!) {
   }
 }
 `
+
+export const GET_USER_EMAIL = gql`
+  query getEmail {
+  getUser {
+    email
+  }
+}
+`;

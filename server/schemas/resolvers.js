@@ -164,7 +164,7 @@ const resolvers = {
     addCollaborator: async (parent, { _id, email }, context) => {
       if (context.user) {
         const user = await User.findOne({ email })
-        if (!user){
+        if (!user) {
           throw new AuthenticationError('No user with that email exists.')
         }
         const newCollaborator = await User.findOneAndUpdate(
@@ -174,22 +174,22 @@ const resolvers = {
 
         const board = await ProjectBoard.findOneAndUpdate(
           { _id },
-          { $push: { collaborators: { email: newCollaborator.email, name: newCollaborator.username } } },
+          { $push: { collaborators: { email: newCollaborator.email, name: newCollaborator.username, lastViewed: 0 } } },
           { runValidators: true, new: true })
-      } 
+      }
       throw new AuthenticationError('You need to be logged in!');
     },
     addTask: async (parent, { name, assignees, projectId, priority }, context) => {
       if (context.user) {
-      const user = await User.findOne({ _id: context.user._id })
-      const task = await Task.create({ name, assignees, priority, creator: user.username })
-      await ProjectBoard.findOneAndUpdate(
-        { _id: projectId },
-        { $addToSet: { tasks: task._id } })
+        const user = await User.findOne({ _id: context.user._id })
+        const task = await Task.create({ name, assignees, priority, creator: user.username })
+        await ProjectBoard.findOneAndUpdate(
+          { _id: projectId },
+          { $addToSet: { tasks: task._id } })
 
-      return task
-    }
-    throw new AuthenticationError('You need to be logged in!');
+        return task
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
     updateTask: async (parent, { taskId, name, assignees, priority, completed }, context) => {
       const task = await Task.findOneAndUpdate(
@@ -197,13 +197,13 @@ const resolvers = {
         { name, assignees, priority, completed },
         { runValidators: true, new: true })
 
-        return task
+      return task
     },
     addProject: async (parent, { name }, context) => {
       if (context.user) {
         const user = await User.findOne({ _id: context.user._id })
 
-        const board = await ProjectBoard.create({ name, collaborators: { email: user.email, name: user.username } })
+        const board = await ProjectBoard.create({ name, collaborators: { email: user.email, name: user.username, lastViewed: 0 } })
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -222,9 +222,44 @@ const resolvers = {
         { $pull: { tasks: task._id } })
 
     },
+    removeProject: async (parent, { _id, remove }, context) => {
+      if (context.user) {
+        const user = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { projects: _id } })
 
+        if (remove) {
+          return await ProjectBoard.findOneAndDelete({ _id })
+        }
 
+        return await ProjectBoard.findOneAndUpdate(
+          { _id },
+          { $pull: { collaborators: { name: user.username, email: user.email } } })
+      }
+      throw new AuthenticationError('You need to be logged in!')
+    },
+    addChatMessage: async (parent, { _id, message }, context) => {
 
+      const user = await User.findOne({ _id: context.user._id })
+
+      const project = await ProjectBoard.findOneAndUpdate(
+        { _id },
+        { $push: { groupChat: { name: user.username, message, email: user.email, time: Date.now() } } },
+        { runValidators: true, new: true })
+
+      return project
+    },
+    updateLastViewed: async (parent, { _id, lastViewed, newLastViewed }, context) => {
+      const user = await User.findOne({ _id: context.user._id })
+      
+      await ProjectBoard.findOneAndUpdate(
+        { _id },
+        { $pull: { collaborators: { name: user.username, email: user.email, lastViewed: lastViewed } } })
+
+      await ProjectBoard.findOneAndUpdate(
+        { _id },
+        { $addToSet: { collaborators: { name: user.username, email: user.email, lastViewed: newLastViewed } } })
+    },
   },
 };
 

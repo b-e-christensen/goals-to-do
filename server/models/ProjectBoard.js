@@ -8,7 +8,12 @@ const projectBoardSchema = new Schema({
     required: true,
     trim: true
   },
-  collaborators: { 
+  collaborators: [{ 
+    name: String,
+    email: String,
+    lastViewed: String
+  }],
+  groupChat: {
     type: Array,
     default: []
   },

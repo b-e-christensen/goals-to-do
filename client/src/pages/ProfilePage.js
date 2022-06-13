@@ -13,7 +13,7 @@ const ProfilePage = (props) => {
   }
 
 
-    const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: '', password: '' });
   const [updateUser] = useMutation(UPDATE_USER);
   const { data, refetch } = useQuery(GET_USER_ALL);
   const userInfo = data?.getUser || {};

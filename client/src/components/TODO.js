@@ -4,7 +4,7 @@ import { ADD_TODO } from '../utils/mutations';
 import TODOCard from './TODOCard';
 
 const Todo = (props) => {
-  const [formState, setFormState] = useState({ name: 'None Given', priority: 'Low' });
+  const [formState, setFormState] = useState({ name: '', priority: 'Low' });
   const [formDisplayState, setFormDisplayState] = useState('collapsed')
   const [addTodo, { error }] = useMutation(ADD_TODO);
 
@@ -33,8 +33,8 @@ const Todo = (props) => {
 
     // clear form values
     setFormState({
-      name: 'None Given',
-      priority: 'Low',
+      name: '',
+      priority: 'Low'
     });
   };
 
@@ -68,7 +68,7 @@ const Todo = (props) => {
                   placeholder="Name of todo"
                   name="name"
                   type="text"
-                  value={formState.todo}
+                  value={formState.name}
                   onChange={handleChange}
                 />
                 <label>

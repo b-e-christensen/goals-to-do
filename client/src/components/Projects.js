@@ -3,20 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { GET_PROJECTS } from '../utils/queries';
 import { Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { ADD_PROJECT } from '../utils/mutations';
+import { ADD_PROJECT, REMOVE_PROJECT } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 function Projects() {
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  if(!token) {
-      window.location.href = "/"
+  if (!token) {
+    window.location.href = "/"
   }
 
   const { data, refetch } = useQuery(GET_PROJECTS)
-  
   const userInfo = data?.getUser.projects || []
-  const allData = data?.getUser || []
+
+  const [removeProject] = useMutation(REMOVE_PROJECT)
 
   useEffect(() => {
     refetch()
@@ -35,7 +35,6 @@ function Projects() {
     });
   };
 
-  console.log(formState)
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -52,7 +51,6 @@ function Projects() {
     setFormDisplayState('collapsed');
   };
 
-  console.log(allData)
   return (
     <>
       <div>
@@ -63,7 +61,7 @@ function Projects() {
           </div>) : (
           <main className="flex-row justify-center mb-4">
             <div className="col-12 col-lg-10 custom-color-m">
-            <h4 className='text-center mt-4 custom-color-m'>Your Projects</h4>
+              <h4 className='text-center mt-4 custom-color-m'>Your Projects</h4>
               <div className="card">
                 <div className="w-100 text-center card-header bg-dark text-light p-2 display-flex justify-space-between align-center">
                   <h4>Create A Project</h4>
@@ -77,7 +75,7 @@ function Projects() {
                       placeholder="Name of task"
                       name="name"
                       type="text"
-                      value={formState.task}
+                      value={formState.name}
                       onChange={handleChange}
                     />
                     <button
@@ -97,11 +95,25 @@ function Projects() {
       <Container>
         {userInfo.map((project) => {
           return (
-            <Card className='m-3 custom-fill-secondary text-center'>
+            <Card className='m-3 display-flex justify-space-between custom-fill-secondary'>
               <Link
                 to={`/projects/${project._id}`}>
                 <h5 className='m-2'>{project.name}</h5>
               </Link>
+              <button className='custom-btn-clr custom-btn-width project-button m-1'
+              onClick={(e) => {
+                if(project.collaborators.length === 1) {
+                  console.log('one collab')
+                  let deleteProject = prompt(`You are the last person on this project. If you leave it will be deleted permanently. Enter the name of this project, "${project.name}" to delete it.`)
+                  if(!deleteProject) {
+                    return
+                  } else if (deleteProject.toLocaleLowerCase() === project.name.toLocaleLowerCase()) {
+                  removeProject({ variables: { _id: project._id, remove: true }})
+                  refetch()}
+                } else {
+                  removeProject({ variables: { _id: project._id, remove: false }})
+                  refetch()}
+              }} >Leave Project</button>
             </Card>
           )
         })}

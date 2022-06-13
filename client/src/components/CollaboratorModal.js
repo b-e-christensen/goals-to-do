@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 import { useMutation } from '@apollo/client';
 import { ADD_COLLABORATOR } from '../utils/mutations';
 
-const StepModal = ({ setShowModal, projectId }) => {
+const CollaboratorNodal = ({ setShowModal, projectId }) => {
   // close the modal when clicking outside the modal.
   const modalRef = useRef();
   const closeModal = (e) => {
@@ -40,10 +40,7 @@ const StepModal = ({ setShowModal, projectId }) => {
     }
 
     // clear form values
-    setFormState({
-      email: '',
-      id: projectId
-    });
+    setShowModal(false);
   };
 
   //render the modal JSX in the portal div.
@@ -75,4 +72,4 @@ const StepModal = ({ setShowModal, projectId }) => {
   );
 };
 
-export default StepModal;
+export default CollaboratorNodal;
