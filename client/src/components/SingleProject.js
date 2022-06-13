@@ -1,12 +1,13 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
-import { GET_SINGLE_PROJECT } from '../utils/queries';
+import { GET_SINGLE_PROJECT, GET_USER_EMAIL } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import CollaboratorModal from './CollaboratorModal'
 import { ADD_TASK } from '../utils/mutations';
 import TaskCard from './TaskCard';
 import Auth from '../utils/auth';
+import ProjectChat from './ProjectChat';
 
 function SingleProject() {
   const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -20,10 +21,13 @@ function SingleProject() {
   const { data, refetch } = useQuery(GET_SINGLE_PROJECT, {
     variables: { id: projectId },
   })
+  const { data: userEmail } = useQuery(GET_USER_EMAIL)
+  const email = userEmail?.getUser.email || []
 
   const project = data?.getSingleProject || []
-  const collaborators = project.collaborators || []
-  
+  const collaborators = project?.collaborators || []
+  const currentUser = collaborators.filter((user) => user.email === email)  
+
   useEffect(() => {
     refetch()
   })
@@ -35,9 +39,15 @@ function SingleProject() {
   const [addTask] = useMutation(ADD_TASK)
 
   const [showModal, setShowModal] = useState(false)
+  const [showChat, setShowChat] = useState(false)
+
 
   const openModal = () => {
     setShowModal(true)
+  }
+
+    const openChat = () => {
+      setShowChat(true)
   }
 
   let assigneesArr = [...assigneesState]
@@ -102,12 +112,26 @@ function SingleProject() {
     }
   }
 
+  console.log(currentUser[0])
+
+
 
   return (
     <>
       <Navbar />
       <div className='display-flex h-100'>
-        <div className='w-75 display-flex justify-center align-center'><h4 className='text-center custom-color-m'>{project.name}</h4></div>
+        <div className='w-75 display-flex justify-center align-center flex-column'><h4 className='text-center custom-color-m'>{project.name}</h4>
+        {currentUser.map((user) => {
+          if(user.lastViewed == project.groupChat.length){
+            return (
+            <h5 className='mt-2 pointer' onClick={openChat}>Group Chat: Click here to view messages.</h5>)
+          } else {
+            return (
+            <h5 className='mt-2 pointer' onClick={openChat}>Group Chat: You have {project.groupChat.length - (+user.lastViewed)} new message(s).</h5>)
+          }
+        })}
+        
+        </div>
         <div className='w-25 overflow-scroll'>
           <div className='display-flex justify-space-between mr-3 mt-2 align-items'><h4 className='custom-color-m'>Collaborators</h4><div className='plus radius' onClick={openModal}></div>
             {showModal ? <CollaboratorModal setShowModal={setShowModal} projectId={projectId} /> : null}
@@ -120,6 +144,7 @@ function SingleProject() {
             )
           })}
         </div>
+        {showChat ? <ProjectChat setShowChat={setShowChat} projectId={projectId} currentUser={currentUser} /> : null}
       </div>
 
       {formDisplayState ? (
@@ -145,7 +170,7 @@ function SingleProject() {
                     placeholder="Name of task"
                     name="name"
                     type="text"
-                    value={formState.task}
+                    value={formState.name}
                     onChange={handleChange}
                   />
                   <label>

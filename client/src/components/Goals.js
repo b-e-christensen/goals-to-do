@@ -14,7 +14,7 @@ function Goals() {
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    console.log(formState)
     setFormState({
       ...formState,
       [name]: value,
@@ -34,7 +34,11 @@ function Goals() {
     }
 
     // clear form values
-    setFormDisplayState('collapsed');
+    setFormDisplayState({
+      name: '',
+      priority: 'Low',
+      completeByDate: ''
+    });
   };
 
   return (
@@ -67,7 +71,7 @@ function Goals() {
                     placeholder="Name of goal"
                     name="name"
                     type="text"
-                    value={formState.goal}
+                    value={formState.name}
                     onChange={handleChange}
                   />
                   <label>

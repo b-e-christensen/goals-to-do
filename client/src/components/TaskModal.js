@@ -81,7 +81,7 @@ const TaskModal = ({ setShowTaskModal, taskId, collaborators }) => {
             placeholder="Name of task"
             name="name"
             type="text"
-            value={formState.task}
+            value={formState.name}
             onChange={handleChange}
           />
           <label>

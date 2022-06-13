@@ -154,3 +154,30 @@ export const REMOVE_TASK = gql`
     }
   }
 `;
+
+export const REMOVE_PROJECT = gql`
+  mutation removeProject($_id: String!, $remove: Boolean!) {
+  removeProject(_id: $_id, remove: $remove) {
+    _id
+    name
+  }
+}
+`;
+
+export const ADD_CHAT_MESSAGE = gql`
+  mutation addChatMessage($_id: String!, $message: String!) {
+    addChatMessage(_id: $_id, message: $message) {
+      _id
+      name
+    }
+  }
+`;
+
+export const UPDATE_LAST_VIEWED = gql`
+  mutation updateLastViewed($_id: String!, $lastViewed: String!, $newLastViewed: String!) {
+  updateLastViewed(_id: $_id, lastViewed: $lastViewed, newLastViewed: $newLastViewed) {
+    _id
+    name
+  }
+}
+`;

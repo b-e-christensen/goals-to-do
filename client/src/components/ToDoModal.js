@@ -55,7 +55,7 @@ const ToDoModal = ({ setShowToDoModal, todoId }) => {
                   placeholder="Name of ToDo"
                   name="name"
                   type="text"
-                  value={formState.todo}
+                  value={formState.name}
                   onChange={handleChange}
                 />
                 <label>

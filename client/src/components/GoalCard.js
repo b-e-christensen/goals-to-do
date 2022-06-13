@@ -72,25 +72,26 @@ const GoalCard = (props) => {
             <button className='w-fit-content custom-btn-clr' onClick={() => { setViewState('') }}>View Completed Goals</button>
           </div>
           {userInfo.map((goal) => {
+            let priorityColor = goal.priority.toLowerCase()
             return (
               goal.completed ? ('') : (
                 <Card key={goal._id} border='dark'>
                   <Card.Body>
-                    <Card.Title className='display-flex custom-fill-secondary'>
+                    <div className='display-flex custom-fill-secondary'>
                       <h5 className='col-11 text-center'>{goal.name}</h5>
                       <GearButton className='col-1 gear-button' onClick={() => openGoalModal(goal._id)} />
-                    </Card.Title>
+                    </div>
 
                     {showGoalModal.boolean ? <GoalsModal setShowGoalModal={setShowGoalModal} goalId={showGoalModal.goalId} /> : null}
 
                     <div className='display-flex justify-space-between'>
-                      <Card.Text>
+                      <div>
                         <div className='w-fit-content display-flex flex-column mt-5'>
-                          <p className='mb-0'>Priority: {goal.priority}</p>
-                          <p className='mb-0'>Complete by date: {new Date(+goal.completeByDate).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</p>
-                          <p>Steps: {goal.steps.length}</p>
+                          <h6 className={priorityColor}>Priority: {goal.priority}</h6>
+                          <h6>Complete by date: {new Date(+goal.completeByDate + 86400000).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</h6>
+                          <h6>Steps: {goal.steps.length}</h6>
                         </div>
-                      </Card.Text>
+                      </div>
                       <div className='w-25 display-flex flex-column justify-space-around align-center'>
                         <button className='w-fit-content custom-btn-clr custom-btn-width ' onClick={(e) => showSteps(goal._id)}>Add/View Steps</button>
                         <button className='w-fit-content custom-btn-clr custom-btn-width ' onClick={(e) => {
@@ -107,21 +108,21 @@ const GoalCard = (props) => {
                       <>
                         <div key={goal._id} className='mt-3 ml-5'>
                           <div className='b-border display-flex justify-space-between'>
-                            <h6>Step(s) to complete {goal.name}</h6>
-                            <button className='w-fit-content' onClick={openStepModal}>Add Step</button>
+                            <h5>Step(s) to complete {goal.name}</h5>
+                            <button className='custom-btn-clr custom-btn-width' onClick={openStepModal}>Add Step</button>
                             {showStepModal ? <StepModal setShowStepModal={setShowStepModal} goalId={goal._id} /> : null}
                           </div>
                           <div className='display-flex flex-column'>
                             {goal.steps.map((step) => (
                               step.completed ? (
                                 <div key={step._id} className='display-flex flex-row justify-space-between'>
-                                  <p className='b-border-step ml-5 line-through'>{step.name}</p>
+                                  <h6 className='b-border-step ml-5 line-through'>{step.name}</h6>
                                   <div className='w-25 display-flex flex-end justify-space-around'>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width' onClick={(e) => {
                                       updateStep({ variables: { _id: step._id, name: step.name, completed: false } })
                                       refetch()
                                     }}>Completed!</button>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width' onClick={(e) => {
                                       removeStep({ variables: { _id: step._id, goalId: goal._id } })
                                       refetch()
                                     }}>Remove</button>
@@ -129,13 +130,13 @@ const GoalCard = (props) => {
                                 </div>
                               ) : (
                                 <div key={step._id} className='display-flex flex-row justify-space-between'>
-                                  <p className='b-border-step ml-5'> - {step.name}</p>
+                                  <h6 className='b-border-step ml-5'> - {step.name}</h6>
                                   <div className='w-25 display-flex flex-end justify-space-around'>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width m-1 h-fit-content' onClick={(e) => {
                                       updateStep({ variables: { _id: step._id, name: step.name, completed: true } })
                                       refetch()
                                     }}>Mark Complete</button>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width m-1' onClick={(e) => {
                                       removeStep({ variables: { _id: step._id, goalId: goal._id } })
                                       refetch()
                                     }}>Remove</button>
@@ -143,7 +144,7 @@ const GoalCard = (props) => {
                                 </div>
                               )
                             ))}
-                            <button className='w-fit-content' onClick={() => closeSteps(goal._id)}>Close Steps</button>
+                            <button className='custom-btn-clr w-fit-content p-1' onClick={() => closeSteps(goal._id)}>Close Steps</button>
                           </div>
                         </div>
                       </>) : ('')}
@@ -161,32 +162,33 @@ const GoalCard = (props) => {
                 ? `Viewing Completed Goals:`
                 : 'Create a Goal'}
             </h2>
-            <button className='w-fit-content' onClick={() => { setViewState('incomplete') }}>View Incomplete Goals</button>
+            <button className='custom-btn-clr custom-btn-width' onClick={() => { setViewState('incomplete') }}>View Incomplete Goals</button>
           </div>
           {userInfo.map((goal) => {
+            let priorityColor = goal.priority.toLowerCase()
             return (
               goal.completed ? (
                 <Card key={goal._id} border='dark'>
                   <Card.Body>
-                    <Card.Title className='display-flex custom-fill-secondary'>
+                    <div className='display-flex custom-fill-secondary'>
                       <h5 className='col-11 text-center'>{goal.name}</h5>
                       <GearButton className='col-1 gear-button' onClick={() => openGoalModal(goal._id)} />
-                    </Card.Title>
+                    </div>
                     <div className='display-flex justify-space-between'>
-                      <Card.Text>
+                      <div>
                         <div className='w-fit-content display-flex flex-column mt-5'>
-                          <p className='mb-0'>Priority: {goal.priority}</p>
-                          <p className='mb-0'>Complete by date: {new Date(+goal.completeByDate).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</p>
-                          <p>Steps: {goal.steps.length}</p>
+                          <h6 className={priorityColor}>Priority: {goal.priority}</h6>
+                          <h6>Complete by date: {new Date(+goal.completeByDate).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</h6>
+                          <h6>Steps: {goal.steps.length}</h6>
                         </div>
-                      </Card.Text>
+                      </div>
                       <div className='w-25 display-flex flex-column justify-space-around align-center'>
-                        <button className='w-fit-content' onClick={(e) => showSteps(goal._id)}>Add/View Steps</button>
-                        <button className='w-fit-content' onClick={(e) => {
+                        <button className='custom-btn-clr custom-btn-width' onClick={(e) => showSteps(goal._id)}>Add/View Steps</button>
+                        <button className='custom-btn-clr custom-btn-width' onClick={(e) => {
                           updateGoal({ variables: { _id: goal._id, name: goal.name, completeByDate: goal.completeByDate, priority: goal.priority, completed: false } })
                           refetch()
                         }}>Completed!</button>
-                        <button className='w-fit-content' onClick={(e) => {
+                        <button className='custom-btn-clr custom-btn-width' onClick={(e) => {
                           removeGoal({ variables: { _id: goal._id } })
                           refetch()
                         }}>Remove</button>
@@ -196,21 +198,21 @@ const GoalCard = (props) => {
                       <>
                         <div key={goal._id} className='mt-3 ml-5'>
                           <div className='b-border display-flex justify-space-between'>
-                            <h6>Step(s) to complete {goal.name}</h6>
-                            <button className='w-fit-content' onClick={openStepModal}>Add Step</button>
+                            <h5>Step(s) to complete {goal.name}</h5>
+                            <button className='custom-btn-clr custom-btn-width' onClick={openStepModal}>Add Step</button>
                             {showStepModal ? <StepModal setShowStepModal={setShowStepModal} goalId={goal._id} /> : null}
                           </div>
                           <div className='display-flex flex-column'>
                             {goal.steps.map((step) => (
                               step.completed ? (
                                 <div key={step._id} className='display-flex flex-row justify-space-between'>
-                                  <p className='b-border-step ml-5 line-through'>{step.name}</p>
+                                  <h6 className='b-border-step ml-5 line-through'>{step.name}</h6>
                                   <div className='w-25 display-flex flex-end justify-space-around'>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width' onClick={(e) => {
                                       updateStep({ variables: { _id: step._id, name: step.name, completed: false } })
                                       refetch()
                                     }}>Completed!</button>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width' onClick={(e) => {
                                       removeStep({ variables: { _id: step._id, goalId: goal._id } })
                                       refetch()
                                     }}>Remove</button>
@@ -218,13 +220,13 @@ const GoalCard = (props) => {
                                 </div>
                               ) : (
                                 <div key={step._id} className='display-flex flex-row justify-space-between'>
-                                  <p className='b-border-step ml-5'> - {step.name}</p>
+                                  <h6 className='b-border-step ml-5'> - {step.name}</h6>
                                   <div className='w-25 display-flex flex-end justify-space-around'>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width m-1 h-fit-content' onClick={(e) => {
                                       updateStep({ variables: { _id: step._id, name: step.name, completed: true } })
                                       refetch()
                                     }}>Mark Complete</button>
-                                    <button className='w-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width m-1' onClick={(e) => {
                                       removeStep({ variables: { _id: step._id, goalId: goal._id } })
                                       refetch()
                                     }}>Remove</button>
@@ -232,7 +234,7 @@ const GoalCard = (props) => {
                                 </div>
                               )
                             ))}
-                            <button className='w-fit-content' onClick={() => closeSteps(goal._id)}>Close Steps</button>
+                            <button className='custom-btn-clr w-fit-content p-1' onClick={() => closeSteps(goal._id)}>Close Steps</button>
                           </div>
                         </div>
                       </>) : ('')}

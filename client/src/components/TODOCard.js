@@ -39,9 +39,10 @@ const TODOCard = (props) => {
             <button className='w-fit-content h-fit-content custom-btn-clr' onClick={() => { setViewState('') }}>View Completed To Do's</button>
           </div>
           {userInfo.map((todo) => {
+            let priorityColor = todo.priority.toLowerCase()
             return (
               todo.completed ? ('') :
-                (<Card key={todo._id} border='dark ' className='custom-card-width '>
+                (<Card key={todo._id} border='dark' className='custom-card-width '>
                   <Card.Body id={todo._id}>
                     <Card.Title className='display-flex custom-fill-secondary'>
                       <h5 className='col-11 text-center'>{todo.name}</h5>
@@ -52,8 +53,8 @@ const TODOCard = (props) => {
 
                     <div className='display-flex justify-space-between'>
                       <div className='w-fit-content display-flex flex-column mt-5'>
-                        <p className='small'>Priority: {todo.priority}</p>
-                        <Card.Text>Incomplete</Card.Text>
+                        <h6 className={priorityColor}>Priority: {todo.priority}</h6>
+                        <h6>Incomplete</h6>
                       </div>
                       <div className='w-50 display-flex flex-column justify-space-around align-center'>
                         <button className='w-fit-content custom-btn-clr custom-btn-width ' onClick={(e) => {
@@ -78,9 +79,10 @@ const TODOCard = (props) => {
                 ? `Viewing Completed To Do's:`
                 : 'Create a To Do'}
             </h2>
-            <button className='w-fit-content h-fit-content' onClick={() => { setViewState('incomplete') }}>View Incomplete To Do's</button>
+            <button className='w-fit-content h-fit-content custom-btn-clr' onClick={() => { setViewState('incomplete') }}>View Incomplete To Do's</button>
           </div>
           {userInfo.map((todo) => {
+            let priorityColor = todo.priority.toLowerCase()
             return (
               todo.completed ? (
                 <Card key={todo._id} border='dark' className='custom-card-width'>
@@ -91,17 +93,23 @@ const TODOCard = (props) => {
                     </Card.Title>
 
                     {showToDoModal.boolean ? <ToDoModal setShowToDoModal={setShowToDoModal} todoId={showToDoModal.todoId} /> : null}
-                    
-                    <p className='small'>Priority: {todo.priority}</p>
-                    <Card.Text>Completed</Card.Text>
-                    <button className='w-fit-content' onClick={(e) => {
-                      updateTodo({ variables: { _id: todo._id, name: todo.name, priority: todo.priority, completed: false } })
-                      refetch()
-                    }}>Completed!</button>
-                    <button className='w-fit-content' onClick={(e) => {
-                      removeTodo({ variables: { _id: todo._id } })
-                      refetch()
-                    }}>Remove</button>
+
+                    <div className='display-flex justify-space-between'>
+                      <div className='w-fit-content display-flex flex-column mt-5'>
+                        <h6 className={priorityColor}>Priority: {todo.priority}</h6>
+                        <h6>Completed</h6>
+                        </div>
+                        <div className='w-50 display-flex flex-column justify-space-around align-center'>
+                        <button className='w-fit-content custom-btn-clr custom-btn-width' onClick={(e) => {
+                          updateTodo({ variables: { _id: todo._id, name: todo.name, priority: todo.priority, completed: false } })
+                          refetch()
+                        }}>Completed!</button>
+                        <button className='w-fit-content custom-btn-clr custom-btn-width' onClick={(e) => {
+                          removeTodo({ variables: { _id: todo._id } })
+                          refetch()
+                        }}>Remove</button>
+                      </div>
+                    </div>
                   </Card.Body>
                 </Card>) : ('')
             )

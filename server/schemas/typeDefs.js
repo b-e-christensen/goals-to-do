@@ -36,6 +36,14 @@ const typeDefs = gql`
   type Collaborators {
     name: String
     email: String
+    lastViewed: String
+  }
+
+  type GroupChat {
+    name: String
+    email: String
+    message: String
+    time: String
   }
 
   input AssigneesInput {
@@ -46,6 +54,7 @@ const typeDefs = gql`
     _id: ID
     name: String
     collaborators: [Collaborators]
+    groupChat: [GroupChat]
     tasks: [Task]!
   }
 
@@ -67,9 +76,6 @@ type Query {
   get: [User]
   getUser: User
   getSingleProject(_id: String!): ProjectBoard
-  # ---- development query -----
-  getUserDevelopment(email: String!): User
-  getBoardDevelopment(_id: String): ProjectBoard
 }
 
   type Mutation {
@@ -89,23 +95,14 @@ type Query {
     removeGoal(_id: String!): Goal
     removeStep(_id: String! goalId: String!): Step
     removeTask(_id: String!, projectId: String!): Task
+    removeProject(_id: String!, remove: Boolean!): ProjectBoard
 
     addCollaborator(email: String!, _id: String!): ProjectBoard
     addTask(name: String!, assignees: [String], projectId: String!, priority: String!): Task
     addProject(name: String!): ProjectBoard
 
-    # MUTATIONS FOR DEVELOPMENT (to be able to make certain calls without being logged in)
-    
-    createTaskDevelopment(boardId: String!, userId: String!, name: String!, priority: String!): Task
-
-
-
-
-    removeTodoDevelopment(_id: String!, email: String!): Todo
-    removeGoalDevelopment(_id: String!, email: String!): Goal
-    addTodoDevelopment(email: String!, name: String!, priority: String!): Todo
-    addGoalDevelopment(email: String!, name: String!, completeByDate: String!, priority: String!): Goal
-    updateUserDevelopment(oldEmail: String!, username: String!, email: String!, password: String!): User
+    addChatMessage(_id: String!, message: String!): ProjectBoard
+    updateLastViewed(_id: String!, lastViewed: String!, newLastViewed: String!): ProjectBoard
   }
 `;
 
