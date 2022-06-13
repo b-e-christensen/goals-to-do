@@ -2119,3 +2119,7 @@ h2 {
 .message-time {
   color: rgb(190, 190, 190);
 }
+
+.float-right {
+  float: right;
+}

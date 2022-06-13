@@ -16,7 +16,7 @@ const ProjectChat = ({ setShowChat, projectId, currentUser }) => {
     }
   })
 
-  const { data, refetch } = useQuery(GET_SINGLE_PROJECT, {
+  const { data } = useQuery(GET_SINGLE_PROJECT, {
     variables: { id: projectId },
     pollInterval: 500,
   })
@@ -42,7 +42,6 @@ const ProjectChat = ({ setShowChat, projectId, currentUser }) => {
       await addChatMessage({
         variables: { ...formState }
       })
-      console.log(formState);
     } catch (e) {
       console.error(e);
     }
@@ -78,7 +77,7 @@ const ProjectChat = ({ setShowChat, projectId, currentUser }) => {
                 <div  className="m-1 col-12">
                   <h6 className="text-right">{message.name} <span className="message-time"> @ {new Date(+message.time).toLocaleTimeString()} {new Date(+message.time).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</span></h6>
                   <div className="chat-bubble my-chat-bubble">
-                    {message.message}
+                    <span className="ml-1 mr-1">{message.message}</span>
                   </div>
                 </div>
               )} else {
@@ -86,7 +85,7 @@ const ProjectChat = ({ setShowChat, projectId, currentUser }) => {
                 <div className="m-1 col-12">
                   <h6 className="text-left">{message.name} <span className="message-time"> @ {new Date(+message.time).toLocaleTimeString()} {new Date(+message.time).toLocaleString("en-US", { day: "numeric", "month": "numeric", "year": "numeric" })}</span></h6>
                   <div className="chat-bubble">
-                    {message.message}
+                  <span className="ml-1 mr-1">{message.message}</span>
                   </div>
                 </div>
               )}

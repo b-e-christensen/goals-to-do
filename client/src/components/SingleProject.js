@@ -20,6 +20,7 @@ function SingleProject() {
 
   const { data, refetch } = useQuery(GET_SINGLE_PROJECT, {
     variables: { id: projectId },
+    pollInterval: 1000,
   })
   const { data: userEmail } = useQuery(GET_USER_EMAIL)
   const email = userEmail?.getUser.email || []
@@ -62,7 +63,6 @@ function SingleProject() {
     });
   };
 
-  console.log(formState)
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -84,7 +84,7 @@ function SingleProject() {
           projectId: projectId
         },
       });
-      console.log(data);
+
     } catch (e) {
       console.error(e);
     }
@@ -112,17 +112,13 @@ function SingleProject() {
     }
   }
 
-  console.log(currentUser[0])
-
-
-
   return (
     <>
       <Navbar />
       <div className='display-flex h-100'>
         <div className='w-75 display-flex justify-center align-center flex-column'><h4 className='text-center custom-color-m'>{project.name}</h4>
         {currentUser.map((user) => {
-          if(user.lastViewed == project.groupChat.length){
+          if(+user.lastViewed === project.groupChat.length){
             return (
             <h5 className='mt-2 pointer' onClick={openChat}>Group Chat: Click here to view messages.</h5>)
           } else {

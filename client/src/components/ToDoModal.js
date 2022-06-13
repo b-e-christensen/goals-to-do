@@ -16,7 +16,7 @@ const ToDoModal = ({ setShowToDoModal, todoId }) => {
   
   const [updateToDo] = useMutation(UPDATE_TODO);
 
-  console.log(formState)
+
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -29,13 +29,12 @@ const ToDoModal = ({ setShowToDoModal, todoId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+
     try {
       const { data } = await updateToDo({
         variables: { ...formState },
       });
-      console.log(formState);
-      console.log(data);
+
     } catch (e) {
       console.error(e);
     }

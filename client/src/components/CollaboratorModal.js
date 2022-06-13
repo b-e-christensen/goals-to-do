@@ -15,7 +15,6 @@ const CollaboratorNodal = ({ setShowModal, projectId }) => {
   const [formState, setFormState] = useState({ email: '', id: projectId })
   const [addCollaborator] = useMutation(ADD_COLLABORATOR);
 
-  console.log(formState)
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -28,13 +27,11 @@ const CollaboratorNodal = ({ setShowModal, projectId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
       const { data } = await addCollaborator({
         variables: { ...formState },
       });
-      console.log(formState);
-      console.log(data);
+      
     } catch (e) {
       console.error(e);
     }

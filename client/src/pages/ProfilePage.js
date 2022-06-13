@@ -31,7 +31,7 @@ const ProfilePage = (props) => {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+
     try {
       await updateUser({
         variables: { ...formState },
