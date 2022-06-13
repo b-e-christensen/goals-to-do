@@ -132,7 +132,7 @@ const GoalCard = (props) => {
                                 <div key={step._id} className='display-flex flex-row justify-space-between'>
                                   <h6 className='b-border-step ml-5'> - {step.name}</h6>
                                   <div className='w-25 display-flex flex-end justify-space-around'>
-                                    <button className='custom-btn-clr custom-btn-width m-1 h-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width m-1' onClick={(e) => {
                                       updateStep({ variables: { _id: step._id, name: step.name, completed: true } })
                                       refetch()
                                     }}>Mark Complete</button>
@@ -222,7 +222,7 @@ const GoalCard = (props) => {
                                 <div key={step._id} className='display-flex flex-row justify-space-between'>
                                   <h6 className='b-border-step ml-5'> - {step.name}</h6>
                                   <div className='w-25 display-flex flex-end justify-space-around'>
-                                    <button className='custom-btn-clr custom-btn-width m-1 h-fit-content' onClick={(e) => {
+                                    <button className='custom-btn-clr custom-btn-width m-1' onClick={(e) => {
                                       updateStep({ variables: { _id: step._id, name: step.name, completed: true } })
                                       refetch()
                                     }}>Mark Complete</button>
