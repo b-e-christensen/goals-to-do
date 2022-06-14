@@ -15,8 +15,6 @@ function Projects() {
 
   const { data, refetch } = useQuery(GET_PROJECTS)
   const userInfo = data?.getUser.projects || []
-  const userEmail = data?.getUser.email || []
-
 
   const [removeProject] = useMutation(REMOVE_PROJECT)
 
@@ -73,7 +71,7 @@ function Projects() {
                   <form onSubmit={handleFormSubmit}>
                     <input
                       className="form-input"
-                      placeholder="Name of task"
+                      placeholder="Name of project"
                       name="name"
                       type="text"
                       value={formState.name}
@@ -95,19 +93,11 @@ function Projects() {
       </div>
       <Container>
         {userInfo.map((project) => {
-          let lastViewed = project.collaborators.filter((collaborator) => collaborator.email === userEmail)
           return (
             <Card className='m-3 display-flex justify-space-between custom-fill-secondary'>
               <Link
                 to={`/projects/${project._id}`}>
-                <h5 className='m-2'>{project.name}
-                {project.groupChat.length - +lastViewed[0].lastViewed ? (
-                  <span className="message-time ml-4">
-                  -- <i>you have {project.groupChat.length - (+lastViewed[0].lastViewed)} new message(s)</i>
-                  </span>
-                ) : null }
-                
-                </h5>
+                <h5 className='m-2'>{project.name}</h5>
               </Link>
               <button className='custom-btn-clr custom-btn-width project-button m-1'
               onClick={(e) => {
